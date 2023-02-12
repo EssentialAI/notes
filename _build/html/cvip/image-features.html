@@ -1,0 +1,618 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Features and Matching &#8212; Notes @ The Essential AI</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="canonical" href="https://essentialai.github.io/essentialai.github.io/cvip/image-features.html" />
+    <link rel="shortcut icon" href="../_static/brain1.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Using scale as a feature for correspondence" href="using-scale-as-feature.html" />
+    <link rel="prev" title="How to rectify two cameras?" href="image-rectification.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/lightmode.svg" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Notes @ The Essential AI</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome to Notes @ Essential AI
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="intro.html">
+   Computer Vision and Image Processing
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="pinhole.html">
+     Introduction and the Pinhole camera
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="CVIP_Project1.html">
+     CVIP-project-1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="image-transformations.html">
+     Image Transformations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="image-formation.html">
+     Image Formation and Stereo Vision
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="image-rectification.html">
+     How to rectify two cameras?
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Image Features and Matching
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="using-scale-as-feature.html">
+     Using scale as a feature for correspondence
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="feature-matching.html">
+     Feature Matching
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="image-filtering.html">
+     Image Filtering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="image-fourier-analysis.html">
+     Image Fourier Analysis
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../reinforcement-learning/intro.html">
+   Reinforcement Learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../reinforcement-learning/mab.html">
+     The Multi-Armed Bandit problem
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../reinforcement-learning/mab-code.html">
+     Coding a simple (random) Multi-Armed Bandit Agent
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../reinforcement-learning/ab-testing.html">
+     A/B/n testing using online advertising scenario
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../reinforcement-learning/epsilon-greedy.html">
+     Epsilon Greedy explained
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../reinforcement-learning/optimistic-initial-values.html">
+     Optimistic initial values
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/cvip/image-features.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-math-behind-harris-corner-detector">
+   The math behind Harris corner detector
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-harris-operator">
+   The Harris Operator
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Image Features and Matching</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-math-behind-harris-corner-detector">
+   The math behind Harris corner detector
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-harris-operator">
+   The Harris Operator
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="image-features-and-matching">
+<h1>Image Features and Matching<a class="headerlink" href="#image-features-and-matching" title="Permalink to this headline">#</a></h1>
+<p>Finding <a class="reference external" href="image-rectification.html#the-fundamental-matrix">fundamental matrix</a> is kind of a chicken-and-egg problem. To map the coordinates between left and right cameras, we require the fundamental matrix, but to find the fundamental matrix, we want at least 8 corresponding image coordinates between left and right image planes.</p>
+<p>We use image features to solve this correspondence problem. Applications of these image-features based mapping can be found in Panorama creation.</p>
+<p>Local features in the image are used to find these corresponding points of objects.</p>
+<p><strong>Advantages of local features.</strong></p>
+<ul class="simple">
+<li><p>Locality - robust to occlusion and clutter.</p></li>
+<li><p>Distinctiveness - can differentiate a large database of objects.</p></li>
+<li><p>Quantify - hundreds or thousands in a single image.</p></li>
+<li><p>Efficiency - real-time performance achievable.</p></li>
+<li><p>Generality - exploit different types of features in different situations.</p></li>
+</ul>
+<p><strong>Challenges</strong></p>
+<ul class="simple">
+<li><p>Repeatability</p></li>
+<li><p>Uniqueness</p></li>
+<li><p>Invariance</p></li>
+</ul>
+<p>Local features are usually a patch of <span class="math notranslate nohighlight">\(n \times n\)</span> dimensions.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This leads us to a question. “Which are the best local features to solve the correspondence problem?”</p>
+</div>
+<div class="figure align-default" id="id1">
+<img alt="imgs/which-features.PNG" src="imgs/which-features.PNG" />
+<p class="caption"><span class="caption-number">Fig. 26 </span><span class="caption-text">Feature selection for correspondence</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+</div>
+<p>Intuitively, <span class = 'high'>corners are the good features</span>, because corners are easier to identify (solving the uniqueness challenge) with low ambiguity.</p>
+<div class="figure align-default" id="id2">
+<img alt="imgs/corners-as-features.PNG" src="imgs/corners-as-features.PNG" />
+<p class="caption"><span class="caption-number">Fig. 27 </span><span class="caption-text">Corners as features</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
+</div>
+<p><strong>Harris corner detector gives a mathematical approach for determining the performance of an image patch w.r.t. movement of the patch along x and y axes.</strong></p>
+<div class="section" id="the-math-behind-harris-corner-detector">
+<h2>The math behind Harris corner detector<a class="headerlink" href="#the-math-behind-harris-corner-detector" title="Permalink to this headline">#</a></h2>
+<p>Each value at every pixel represents its intensity from <span class="math notranslate nohighlight">\(0 \rightarrow 255\)</span>. When the image patch is translated across <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> axis, the measure of intensity at each pixel changes. If this change is drastic, then the location could be a corner. This would be a good candidate for correspondence matching.</p>
+<p>The difference in the intensity between pixel locations of two patches is simply a <span class = 'high'>square of difference of the intensity values at every pixel for first and second patch.</span></p>
+<div class="math notranslate nohighlight" id="equation-delta-i">
+<span class="eqno">(20)<a class="headerlink" href="#equation-delta-i" title="Permalink to this equation">#</a></span>\[\Delta I = \sum_{i,j}({I_{i,j}}_{\text{patch-1}}-{I_{i,j}}_{\text{patch-2}})^2\]</div>
+<p>If <span class="math notranslate nohighlight">\(\Delta I\)</span> is low, it shows that the feature is bad. The change in Intensity <span class="math notranslate nohighlight">\(\Delta I\)</span> depends on the movement along <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> axes. This movement along an axis helps us determine the geometry of the patch.</p>
+<p>To acheive the above patch movement along <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> axes, we generalize <code class="docutils literal notranslate"><span class="pre">eq</span></code>{delta-I} as:</p>
+<div class="figure align-default" id="id3">
+<img alt="imgs/delta-I.PNG" src="imgs/delta-I.PNG" />
+<p class="caption"><span class="caption-number">Fig. 28 </span><span class="caption-text">Change in the intensity of pixels with movement of image patch.</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
+</div>
+<p>Using the taylor series expansion, we represent:</p>
+<div class="math notranslate nohighlight">
+\[
+I(x+u, y+v) = I(x,y)+ u{I'}_x(x,y) + v{I'}_y(x,y)
+\]</div>
+<p>The matrix form of <span class="math notranslate nohighlight">\(E(u,v)\)</span> can be written as:</p>
+<div class="math notranslate nohighlight" id="equation-harris-corner">
+<span class="eqno">(21)<a class="headerlink" href="#equation-harris-corner" title="Permalink to this equation">#</a></span>\[\begin{split}E(u,v) \approx \begin{bmatrix}
+u &amp; v
+\end{bmatrix} \sum_{x,y}w(x,y)
+\begin{bmatrix}
+I_x^2 &amp; I_xI_y \\
+I_x I_y &amp; I_y^2
+\end{bmatrix} \begin{bmatrix} u \\
+v \end{bmatrix}\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(I_x\)</span> and <span class="math notranslate nohighlight">\(I_y\)</span> are the gradients of Intensity function along <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> axes.</p>
+<div class="figure align-default" id="id4">
+<img alt="imgs/E_u_v.PNG" src="imgs/E_u_v.PNG" />
+<p class="caption"><span class="caption-number">Fig. 29 </span><span class="caption-text">Harris corner detector equation.</span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
+</div>
+<p><span class="math notranslate nohighlight">\(w(x,y)\)</span> demonstrates the importance of difference in intensity of pixels at a location. Sometimes, the pixels at the center can be more important than edge pixels.</p>
+<p><span class = 'high'>A good features has <span class="math notranslate nohighlight">\(E(u,v)\)</span> as a very high value.</span></p>
+<div class="tip admonition">
+<p class="admonition-title"><span class="math notranslate nohighlight">\(I_x\)</span> and <span class="math notranslate nohighlight">\(I_y\)</span> elaborated</p>
+<p><span class="math notranslate nohighlight">\(I_x\)</span> and <span class="math notranslate nohighlight">\(I_y\)</span> are the partial derivatives of the function <span class="math notranslate nohighlight">\(I\)</span> w.r.t. <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> respectively.</p>
+<div class="math notranslate nohighlight">
+\[
+I_x = \frac{\partial I(x,y)}{\partial x}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+I_y = \frac{\partial I(x,y)}{\partial y}
+\]</div>
+<p><span class = 'high'>Along the vertical edge <span class="math notranslate nohighlight">\(I_y = 0\)</span>, <span class="math notranslate nohighlight">\(I_x = \text{large}\)</span></span></p>
+<p><span class = 'high'>Along the horizontal edge <span class="math notranslate nohighlight">\(I_x = 0\)</span>, <span class="math notranslate nohighlight">\(I_y = \text{large}\)</span>.</span></p>
+<p><span class = 'high'>At a corner <span class="math notranslate nohighlight">\(I_x = \text{large}, I_y = \text{large}\)</span>.</span></p>
+</div>
+<p>Using geometry and the concept of eigen values, the matrix <span class="math notranslate nohighlight">\(M\)</span> is represented in the form of eigen values, <span class="math notranslate nohighlight">\(\lambda _1\)</span> and <span class="math notranslate nohighlight">\(\lambda _2\)</span></p>
+<p>Eigen values represent the maximum change in <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> direction of <span class="math notranslate nohighlight">\(I\)</span>.</p>
+<div class="figure align-default" id="id5">
+<img alt="imgs/l1-l2.PNG" src="imgs/l1-l2.PNG" />
+<p class="caption"><span class="caption-number">Fig. 30 </span><span class="caption-text">Eigen value representation of gradients <span class="math notranslate nohighlight">\(I_x\)</span> and <span class="math notranslate nohighlight">\(I_y\)</span></span><a class="headerlink" href="#id5" title="Permalink to this image">#</a></p>
+</div>
+<div class="figure align-default" id="id6">
+<img alt="imgs/class-by-eigen.PNG" src="imgs/class-by-eigen.PNG" />
+<p class="caption"><span class="caption-number">Fig. 31 </span><span class="caption-text">Classification of image patches using eigen values.</span><a class="headerlink" href="#id6" title="Permalink to this image">#</a></p>
+</div>
+<div class="figure align-default" id="id7">
+<img alt="imgs/l1-l2-1.PNG" src="imgs/l1-l2-1.PNG" />
+<p class="caption"><span class="caption-number">Fig. 32 </span><span class="caption-text">Eigen value representation of <span class="math notranslate nohighlight">\(M\)</span></span><a class="headerlink" href="#id7" title="Permalink to this image">#</a></p>
+</div>
+<div class="figure align-default" id="id8">
+<img alt="imgs/l1-l2-2.PNG" src="imgs/l1-l2-2.PNG" />
+<p class="caption"><span class="caption-number">Fig. 33 </span><span class="caption-text">The Matrix <span class="math notranslate nohighlight">\(H\)</span>.</span><a class="headerlink" href="#id8" title="Permalink to this image">#</a></p>
+</div>
+<div class="figure align-default" id="id9">
+<img alt="imgs/l1-l2-3.PNG" src="imgs/l1-l2-3.PNG" />
+<p class="caption"><span class="caption-number">Fig. 34 </span><span class="caption-text">Eigen values of <span class="math notranslate nohighlight">\(H\)</span></span><a class="headerlink" href="#id9" title="Permalink to this image">#</a></p>
+</div>
+<div class="figure align-default" id="id10">
+<img alt="imgs/l1-l2-4.PNG" src="imgs/l1-l2-4.PNG" />
+<p class="caption"><span class="caption-number">Fig. 35 </span><span class="caption-text">Detection on a chess board</span><a class="headerlink" href="#id10" title="Permalink to this image">#</a></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>At every pixel we calculate the matrix <span class="math notranslate nohighlight">\(M\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(\lambda_+\)</span> is the amount of increase in the direction of largest increase. <span class = 'high'>It is responsible for the detection of corners as well as the edges.</span></p>
+<p><span class="math notranslate nohighlight">\(\lambda_-\)</span> is the amount of increase in the direction of smallest increase. <span class = 'high'>It is responsible for the detection of corners in the image.</span></p>
+</div>
+<div class="figure align-default" id="id11">
+<img alt="imgs/l1-l2-5.PNG" src="imgs/l1-l2-5.PNG" />
+<p class="caption"><span class="caption-number">Fig. 36 </span><span class="caption-text">Detection on a chess board</span><a class="headerlink" href="#id11" title="Permalink to this image">#</a></p>
+</div>
+</div>
+<div class="section" id="the-harris-operator">
+<h2>The Harris Operator<a class="headerlink" href="#the-harris-operator" title="Permalink to this headline">#</a></h2>
+<div class="figure align-default" id="id12">
+<img alt="imgs/harris-operator.PNG" src="imgs/harris-operator.PNG" />
+<p class="caption"><span class="caption-number">Fig. 37 </span><span class="caption-text">Harris Operator for the matrix <span class="math notranslate nohighlight">\(H\)</span> in <code class="docutils literal notranslate"><span class="pre">Fig-33</span></code></span><a class="headerlink" href="#id12" title="Permalink to this image">#</a></p>
+</div>
+<p>The Harris Operator <span class="math notranslate nohighlight">\(f\)</span> is smoother than <span class="math notranslate nohighlight">\(\lambda_-\)</span>. <span class="math notranslate nohighlight">\(\lambda_-\)</span> is more picky.</p>
+<div class="figure align-default" id="id13">
+<img alt="imgs/harris-operator1.PNG" src="imgs/harris-operator1.PNG" />
+<p class="caption"><span class="caption-number">Fig. 38 </span><span class="caption-text">Harris Operator v/s <span class="math notranslate nohighlight">\(\lambda_-\)</span></span><a class="headerlink" href="#id13" title="Permalink to this image">#</a></p>
+</div>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:center head"><p>Input</p></th>
+<th class="text-align:center head"><p>Detection</p></th>
+<th class="text-align:center head"><p>Output</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:center"><p><img alt="" src="imgs/harris-example-left.PNG" /></p></td>
+<td class="text-align:center"><p><img alt="" src="imgs/harris-example-right.PNG" /></p></td>
+<td class="text-align:center"><p><img alt="" src="imgs/harris-example-bw.PNG" /></p></td>
+</tr>
+</tbody>
+</table>
+<p>Even though the image, is tilted (or projected), the harris corner detector is able to find the corners in the image.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Using harris corner detector, it might seem that we can find the corresponding points to find the fundamental matrix. However, these points are just the candidates for the best points to consider for correspondence. We have to remove outliers from these corners, along with other important challenges that arise from Harris Corner detector.</p>
+<p><span class= 'high'>Another important point is that, while Harris corner detector gives you all the corners in the image, it does not give you the correspondence between the corners.</span></p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "EssentialAI/notes",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./cvip"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="image-rectification.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">How to rectify two cameras?</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="using-scale-as-feature.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Using scale as a feature for correspondence</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Naresh Kumar<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

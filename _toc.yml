@@ -1,0 +1,26 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+chapters:
+- file: cvip/intro.md
+  sections:
+  - file: cvip/pinhole
+  - file: cvip/CVIP_Project1.ipynb
+  - file: cvip/image-transformations
+  - file: cvip/image-formation
+  - file: cvip/image-rectification
+  - file: cvip/image-features
+  - file: cvip/using-scale-as-feature
+  - file: cvip/feature-matching
+  - file: cvip/image-filtering
+  - file: cvip/image-fourier-analysis
+
+- file: reinforcement-learning/intro.md
+  sections:
+  - file: reinforcement-learning/mab
+  - file: reinforcement-learning/mab-code
+  - file: reinforcement-learning/ab-testing.ipynb
+  - file: reinforcement-learning/epsilon-greedy.ipynb
+  - file: reinforcement-learning/optimistic-initial-values.ipynb
