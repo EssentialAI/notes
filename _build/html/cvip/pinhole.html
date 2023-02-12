@@ -178,7 +178,7 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../reinforcement-learning/intro.html">
+  <a class="reference internal" href="../reinforcement-learning1/intro.html">
    Reinforcement Learning
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
@@ -188,27 +188,27 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/mab.html">
+    <a class="reference internal" href="../reinforcement-learning1/mab.html">
      The Multi-Armed Bandit problem
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/mab-code.html">
+    <a class="reference internal" href="../reinforcement-learning1/mab-code.html">
      Coding a simple (random) Multi-Armed Bandit Agent
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/ab-testing.html">
+    <a class="reference internal" href="../reinforcement-learning1/ab-testing.html">
      A/B/n testing using online advertising scenario
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/epsilon-greedy.html">
+    <a class="reference internal" href="../reinforcement-learning1/epsilon-greedy.html">
      Epsilon Greedy explained
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/optimistic-initial-values.html">
+    <a class="reference internal" href="../reinforcement-learning1/optimistic-initial-values.html">
      Optimistic initial values
     </a>
    </li>
@@ -475,7 +475,7 @@ title="Print to PDF"
 <h1>Introduction and the Pinhole camera<a class="headerlink" href="#introduction-and-the-pinhole-camera" title="Permalink to this headline">#</a></h1>
 <p>Have you ever wondered what complex mathematics runs behind the miniature camera that we use in our every day life. Point and shoot cameras are ubiquotous to a point that we take camera technology for granted.</p>
 <p>Consider an image of a railway track.</p>
-<img alt="railways" class="bg-primary mb-1 align-center" src="imgs/railway.jpg" />
+<img alt="railways" class="bg-primary mb-1 align-center" src="../_images/railway.jpg" />
 <p>The rails look as if they converge at the end, however, we know that they do not. The depth of the scene is lost in the image (as the picture is a 2D image). The imperative question arises <span class = 'high'>How do we map a 3D object onto a 2D image?</span> Better yet, How to map a 3D point in space on a 2D plane? While making this 3D to 2D mapping, what is the information about the scene that is lost? What illusions would arise?</p>
 <p>This section aims at answering the above questions while providing a detailed explanation of the pinhole camera.</p>
 <p><strong>Computer Vision Overview</strong></p>
@@ -522,17 +522,17 @@ title="Print to PDF"
 <h1>Pinhole camera model<a class="headerlink" href="#pinhole-camera-model" title="Permalink to this headline">#</a></h1>
 <p>The pinhole camera makes sure that every unique point in the physical space falls on the film.</p>
 <div class="figure align-default" id="id1">
-<img alt="imgs/pinhole_1.PNG" src="imgs/pinhole_1.PNG" />
+<img alt="../_images/pinhole_1.PNG" src="../_images/pinhole_1.PNG" />
 <p class="caption"><span class="caption-number">Fig. 1 </span><span class="caption-text">Pinhole camera</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
 </div>
 <div class="figure align-default" id="id2">
-<img alt="imgs/pinhole_2.PNG" src="imgs/pinhole_2.PNG" />
+<img alt="../_images/pinhole_2.PNG" src="../_images/pinhole_2.PNG" />
 <p class="caption"><span class="caption-number">Fig. 2 </span><span class="caption-text">Pinhole camera Model</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
 </div>
 <p>The image that we see on the screen after taking an image is virtual image plane. Same phenomenon happens in human eyes.</p>
 <p>Zooming in and Zooming out changes the focal length of a camera. (Not digital zoom, optical zoom)</p>
 <div class="figure align-default" id="id3">
-<img alt="imgs/focal_length.PNG" src="imgs/focal_length.PNG" />
+<img alt="../_images/focal_length.PNG" src="../_images/focal_length.PNG" />
 <p class="caption"><span class="caption-number">Fig. 3 </span><span class="caption-text">Pinhole camera 2D representation</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
 </div>
 <p>The above diagram gives us the first equation for image formation in computer vision. Given a 3D point <span class="math notranslate nohighlight">\(P =(X,Y,Z)^T\)</span>, the camera projects this point to onto a <span class="math notranslate nohighlight">\(2D\)</span> image plane to <span class="math notranslate nohighlight">\(p = (x,y)^T\)</span>. From the above figure:</p>
@@ -649,7 +649,7 @@ f_x &amp; 0 &amp; o_x \\
 <li><p>Finding the rotation matrix that brings the corresponding axes of the two frames into alignment (i.e., onto each other).</p></li>
 </ol>
 <div class="figure align-default" id="id4">
-<img alt="imgs/rot_translate.PNG" src="imgs/rot_translate.PNG" />
+<img alt="../_images/rot_translate.PNG" src="../_images/rot_translate.PNG" />
 <p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">Rotation and Translation from world coordinates to camera coordinates.</span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
 </div>
 <p>Using the extrinsic camera parameters, we can find the relation between the coordinates of a point <span class="math notranslate nohighlight">\(P\)</span> in the world <span class="math notranslate nohighlight">\((P_w)\)</span> and camera <span class="math notranslate nohighlight">\((P_c)\)</span> coordinates:</p>
@@ -769,7 +769,7 @@ sy = m_{21}X_w + m_{22}Y_w + m_{23}Z_w + m_{24} \\
 s = m_{31}X_w + m_{32}Y_w + m_{33}Z_w + m_{34}\end{split}\]</div>
 <p>To solve for the matrix <span class="math notranslate nohighlight">\(M\)</span>,</p>
 <div class="figure align-default" id="id5">
-<img alt="imgs/matrix_m.PNG" src="imgs/matrix_m.PNG" />
+<img alt="../_images/matrix_m.PNG" src="../_images/matrix_m.PNG" />
 <p class="caption"><span class="caption-number">Fig. 5 </span><span class="caption-text">Solving for the matrix <span class="math notranslate nohighlight">\(M\)</span></span><a class="headerlink" href="#id5" title="Permalink to this image">#</a></p>
 </div>
 <p>where the first matrix is of size <span class="math notranslate nohighlight">\(2n \times 12\)</span> (<span class="math notranslate nohighlight">\(n\)</span> is the number of available points.)</p>

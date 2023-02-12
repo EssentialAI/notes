@@ -178,7 +178,7 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../reinforcement-learning/intro.html">
+  <a class="reference internal" href="../reinforcement-learning1/intro.html">
    Reinforcement Learning
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
@@ -188,27 +188,27 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/mab.html">
+    <a class="reference internal" href="../reinforcement-learning1/mab.html">
      The Multi-Armed Bandit problem
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/mab-code.html">
+    <a class="reference internal" href="../reinforcement-learning1/mab-code.html">
      Coding a simple (random) Multi-Armed Bandit Agent
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/ab-testing.html">
+    <a class="reference internal" href="../reinforcement-learning1/ab-testing.html">
      A/B/n testing using online advertising scenario
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/epsilon-greedy.html">
+    <a class="reference internal" href="../reinforcement-learning1/epsilon-greedy.html">
      Epsilon Greedy explained
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/optimistic-initial-values.html">
+    <a class="reference internal" href="../reinforcement-learning1/optimistic-initial-values.html">
      Optimistic initial values
     </a>
    </li>
@@ -432,7 +432,7 @@ title="Print to PDF"
 <p>For pixel matching between two cameras, we need to first rectify the images, such that the pixel search between left and right images becomes a linear search.</p>
 <p>To perform this rectification, we need to rotate cameras such that the image planes are parallel to each other.</p>
 <div class="figure align-default" id="id1">
-<img alt="imgs/epipolar.PNG" src="imgs/epipolar.PNG" />
+<img alt="../_images/epipolar.PNG" src="../_images/epipolar.PNG" />
 <p class="caption"><span class="caption-number">Fig. 22 </span><span class="caption-text">Epipolar Geometry</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
 </div>
 <p><span class="math notranslate nohighlight">\(P \rightarrow\)</span> Point in real world. <span class="math notranslate nohighlight">\([X,Y,Z]^T\)</span></p>
@@ -441,13 +441,13 @@ title="Print to PDF"
 <p><span class="math notranslate nohighlight">\( T \rightarrow \)</span> Baseline between the camera <span class="math notranslate nohighlight">\(C_l\)</span> and <span class="math notranslate nohighlight">\(C_r\)</span>.</p>
 <p>Using the co-planarity constraint, we can find a relation between the point in the left camera and the point in the right camera.</p>
 <div class="figure align-default" id="id2">
-<img alt="imgs/co-planarity-constraint.PNG" src="imgs/co-planarity-constraint.PNG" />
+<img alt="../_images/co-planarity-constraint.PNG" src="../_images/co-planarity-constraint.PNG" />
 <p class="caption"><span class="caption-number">Fig. 23 </span><span class="caption-text">Using coplanarity constraint to find the relation between <span class="math notranslate nohighlight">\(P_l\)</span> and <span class="math notranslate nohighlight">\(P_r\)</span></span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
 </div>
 <div class="section" id="the-essential-matrix">
 <h2>The Essential Matrix<a class="headerlink" href="#the-essential-matrix" title="Permalink to this headline">#</a></h2>
 <div class="figure align-default" id="id3">
-<img alt="imgs/essential-matrix.PNG" src="imgs/essential-matrix.PNG" />
+<img alt="../_images/essential-matrix.PNG" src="../_images/essential-matrix.PNG" />
 <p class="caption"><span class="caption-number">Fig. 24 </span><span class="caption-text">Essential Matrix</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
 </div>
 <p>The vector <span class="math notranslate nohighlight">\(T = [T_x, T_y, T_z]^T\)</span> is the relative distance (in 3D coordinates) between the left and the right cameras.</p>
@@ -469,7 +469,7 @@ title="Print to PDF"
 <p><span class = 'high'>An important detail to observe here is that, <span class="math notranslate nohighlight">\(P_l\)</span> and <span class="math notranslate nohighlight">\(P_r\)</span> are 3D locations as seen from left and right cameras, respectively.</span></p>
 <p><span class = 'high'>Fundamental matrix captures the relation between the 2D image coordinates.</span></p>
 <div class="figure align-default" id="id4">
-<img alt="imgs/fundamental-matrix.PNG" src="imgs/fundamental-matrix.PNG" />
+<img alt="../_images/fundamental-matrix.PNG" src="../_images/fundamental-matrix.PNG" />
 <p class="caption"><span class="caption-number">Fig. 25 </span><span class="caption-text">Fundamental Matrix</span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
 </div>
 <p>In the above figure <span class="math notranslate nohighlight">\(M_l\)</span> and <span class="math notranslate nohighlight">\(M_r\)</span> are the intrinsic parameter matrices of left and right cameras respectively.</p>
