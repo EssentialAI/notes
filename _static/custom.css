@@ -1,0 +1,47 @@
+/* The Modal (background) */
+
+
+.high {
+  /* font-size: 17px; */
+  color:#E83E8C;
+}
+
+.btn {
+  background-color: rgb(0, 102, 255);
+  border: none;
+  color: white;
+  padding: 6px 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.latex{
+  font-size: 15px;
+}
+
+.pasted-inline > img {
+  display: inline !important;
+}
+
+.bold_ital{
+    font-weight: 600;
+    font-style: italic;
+}
+
+.bital{
+    color: blue;
+    font-style: italic;
+}
+
+.nital{
+    font-style: italic;
+}
+
+.hital{
+    color:#E83E8C;
+    font-style: italic;
+}
+
+.latex{
+    font-size: 15px;
+}
