@@ -17,10 +17,10 @@ chapters:
   - file: cvip/image-filtering
   - file: cvip/image-fourier-analysis
 
-- file: reinforcement-learning/intro.md
+- file: rl/intro.md
   sections:
-  - file: reinforcement-learning/mab
-  - file: reinforcement-learning/mab-code
-  - file: reinforcement-learning/ab-testing.ipynb
-  - file: reinforcement-learning/epsilon-greedy.ipynb
-  - file: reinforcement-learning/optimistic-initial-values.ipynb
+  - file: rl/mab
+  - file: rl/mab-code
+  - file: rl/ab-testing.ipynb
+  - file: rl/epsilon-greedy.ipynb
+  - file: rl/optimistic-initial-values.ipynb
