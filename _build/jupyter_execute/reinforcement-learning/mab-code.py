@@ -123,14 +123,14 @@ game = GaussianBanditGame([slotA, slotB, slotC])
 #game.user_play()
 
 
-# In[2]:
+# In[3]:
 
 
 # Automating the slot picking using random decision and visualizing the reward
 game.user_play_random_pick()
 
 
-# In[3]:
+# In[4]:
 
 
 # Reward if the agent always picks the best slot machine
@@ -141,7 +141,7 @@ game.user_play_exploit_pick()
 # 
 # **Slot machines with a fixed probability of binary reward.**
 
-# In[4]:
+# In[6]:
 
 
 ## Multi-Arm Bandit code

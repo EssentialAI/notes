@@ -7,7 +7,7 @@
 # 
 # # Application to the online advertising scenario
 
-# In[1]:
+# In[7]:
 
 
 import numpy as np

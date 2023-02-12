@@ -9,7 +9,7 @@
 # 
 # Once the estimates are initialized, we do not perform any exploration of any kind, we just choose the bandit with the highest estimate of reward (Q) at the time step.
 
-# In[1]:
+# In[16]:
 
 
 # Optimistic initial values in code
