@@ -403,6 +403,7 @@ title="Print to PDF"
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="c1"># Class for a single slot machine. Rewards are Gaussian.</span>
 <span class="k">class</span> <span class="nc">GaussianBandit</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -521,8 +522,8 @@ title="Print to PDF"
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Game started.
 Game has ended.
-Total reward is 40088.19999999984 after 10000 round(s).
-Average reward is 4.008819999999984.
+Total reward is 39871.20000000006 after 10000 round(s).
+Average reward is 3.987120000000006.
 </pre></div>
 </div>
 <img alt="../_images/mab-code_3_11.png" src="../_images/mab-code_3_11.png" />
@@ -538,8 +539,8 @@ Average reward is 4.008819999999984.
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Game started.
 Game has ended.
-Total reward is 60186.400000000016 after 10000 round(s).
-Average reward is 6.018640000000001.
+Total reward is 60053.5 after 10000 round(s).
+Average reward is 6.00535.
 </pre></div>
 </div>
 <img alt="../_images/mab-code_4_11.png" src="../_images/mab-code_4_11.png" />
@@ -552,6 +553,8 @@ Average reward is 6.018640000000001.
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Multi-Arm Bandit code</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
 <span class="n">Bandit_probs</span><span class="o">=</span> <span class="p">[</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="mf">0.5</span><span class="p">]</span>
 <span class="n">num_trails</span> <span class="o">=</span> <span class="mi">10000</span>
 
@@ -607,12 +610,12 @@ Average reward is 6.018640000000001.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Estimated probabilities 0.8974358974358971
-Estimated probabilities 0.7978660343805561
-Estimated probabilities 0.5002985074626864
-Total reward earned =  7308.0
-Overall win rate =  0.7308
-Number of optimal pulls =  3276
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Estimated probabilities 0.8999404407385346
+Estimated probabilities 0.7973421926910281
+Estimated probabilities 0.49204443110177126
+Total reward earned =  7301.0
+Overall win rate =  0.7301
+Number of optimal pulls =  3358
 </pre></div>
 </div>
 <img alt="../_images/mab-code_6_11.png" src="../_images/mab-code_6_11.png" />

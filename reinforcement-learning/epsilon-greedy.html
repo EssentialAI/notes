@@ -479,6 +479,7 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="k">class</span> <span class="nc">BernoulliBandit</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -545,20 +546,22 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The best performing ad with epsilon 0.1 is A
-No. of times optimal ad was shown is 8959
-No. of times explored: 994
-No. of times exploited: 9006
+No. of times optimal ad was shown is 9182
+No. of times explored: 996
+No. of times exploited: 9004
 The best performing ad with epsilon 0.01 is A
-No. of times optimal ad was shown is 9908
-No. of times explored: 93
-No. of times exploited: 9907
-The best performing ad with epsilon 0.03 is A
-No. of times optimal ad was shown is 9682
-No. of times explored: 306
-No. of times exploited: 9694
+No. of times optimal ad was shown is 9870
+No. of times explored: 92
+No. of times exploited: 9908
 </pre></div>
 </div>
-<img alt="../_images/epsilon-greedy_2_11.png" src="../_images/epsilon-greedy_2_11.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The best performing ad with epsilon 0.03 is C
+No. of times optimal ad was shown is 133
+No. of times explored: 309
+No. of times exploited: 9691
+</pre></div>
+</div>
+<img alt="../_images/epsilon-greedy_2_2.png" src="../_images/epsilon-greedy_2_2.png" />
 </div>
 </div>
 <p>From the above graph it is very clear that, with higher epsilon value, the agent explores more. While all the agents with different epsilon values converge to the similar final average reward and decide on the same best performing ad, the difference in the time taken for convergence is significant.</p>
