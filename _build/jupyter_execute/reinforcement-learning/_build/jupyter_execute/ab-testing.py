@@ -15,7 +15,7 @@
 
 # **1. We start by creating a class to model the ad behavior:**
 
-# In[5]:
+# In[1]:
 
 
 import numpy as np
@@ -31,7 +31,7 @@ class BernoulliBandit(object):
 
 # **2. Now, let's create five different ads (banners) with the corresponding CTRs we arbitrarily pick:**
 
-# In[6]:
+# In[2]:
 
 
 adA = BernoulliBandit(0.004)
@@ -104,7 +104,7 @@ ads = [adA, adB, adC, adD, adE]
 # 
 # **1. We start with creating the variables to keep track of the rewards in the experiment:**
 
-# In[7]:
+# In[3]:
 
 
 n_test = 10000
@@ -116,7 +116,7 @@ total_reward = 0
 avg_rewards = []  # Save average rewards over time
 
 
-# In[8]:
+# In[4]:
 
 
 # A/B/n test
@@ -130,14 +130,14 @@ for i in range(n_test):
     avg_rewards.append(avg_reward_so_far)
 
 
-# In[9]:
+# In[5]:
 
 
 best_ad_index = np.argmax(Q)  # Find the best action
 print("The best performing ad is {}".format(chr(ord('A') + best_ad_index)))
 
 
-# In[10]:
+# In[6]:
 
 
 ad_chosen = best_ad_index
@@ -148,14 +148,14 @@ for i in range(n_prod):
     avg_rewards.append(avg_reward_so_far)
 
 
-# In[11]:
+# In[7]:
 
 
 import pandas as pd
 df_reward_comparison = pd.DataFrame(avg_rewards, columns=['A/B/n'])
 
 
-# In[19]:
+# In[8]:
 
 
 import matplotlib.pyplot as plt
@@ -167,7 +167,7 @@ plt.ylabel("Avg. Reward")
 plt.show()
 
 
-# In[24]:
+# In[9]:
 
 
 print(Q)

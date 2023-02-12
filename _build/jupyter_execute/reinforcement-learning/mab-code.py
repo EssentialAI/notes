@@ -11,11 +11,12 @@
 
 # **Bandits with Gaussian Reward distribution**
 
-# In[40]:
+# In[1]:
 
 
 import numpy as np
 import matplotlib.pyplot as plt
+import pandas as pd
 
 # Class for a single slot machine. Rewards are Gaussian.
 class GaussianBandit(object):
@@ -122,14 +123,14 @@ game = GaussianBanditGame([slotA, slotB, slotC])
 #game.user_play()
 
 
-# In[41]:
+# In[2]:
 
 
 # Automating the slot picking using random decision and visualizing the reward
 game.user_play_random_pick()
 
 
-# In[39]:
+# In[3]:
 
 
 # Reward if the agent always picks the best slot machine
@@ -140,12 +141,14 @@ game.user_play_exploit_pick()
 # 
 # **Slot machines with a fixed probability of binary reward.**
 
-# In[65]:
+# In[4]:
 
 
 ## Multi-Arm Bandit code
 import numpy as np
 import matplotlib.pyplot as plt
+import pandas as pd
+
 Bandit_probs= [0.9,0.8,0.5]
 num_trails = 10000
 
