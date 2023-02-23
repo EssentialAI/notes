@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Image Features and Matching &#8212; Notes @ The Essential AI</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -35,10 +36,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -178,7 +182,7 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../reinforcement-learning/intro.html">
+  <a class="reference internal" href="../rl/intro.html">
    Reinforcement Learning
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
@@ -188,28 +192,43 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/mab.html">
+    <a class="reference internal" href="../rl/mab.html">
      The Multi-Armed Bandit problem
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/mab-code.html">
+    <a class="reference internal" href="../rl/mab-code.html">
      Coding a simple (random) Multi-Armed Bandit Agent
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/ab-testing.html">
+    <a class="reference internal" href="../rl/ab-testing.html">
      A/B/n testing using online advertising scenario
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/epsilon-greedy.html">
+    <a class="reference internal" href="../rl/epsilon-greedy.html">
      Epsilon Greedy explained
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/optimistic-initial-values.html">
+    <a class="reference internal" href="../rl/optimistic-initial-values.html">
      Optimistic initial values
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../rl/mdp.html">
+     Markov Decision Processes Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../rl/markov-property.html">
+     The Markov Property
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../rl/future-rewards.html">
+     Future Rewards
     </a>
    </li>
   </ul>
@@ -395,7 +414,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="image-features-and-matching">
+  <section class="tex2jax_ignore mathjax_ignore" id="image-features-and-matching">
 <h1>Image Features and Matching<a class="headerlink" href="#image-features-and-matching" title="Permalink to this headline">#</a></h1>
 <p>Finding <a class="reference external" href="image-rectification.html#the-fundamental-matrix">fundamental matrix</a> is kind of a chicken-and-egg problem. To map the coordinates between left and right cameras, we require the fundamental matrix, but to find the fundamental matrix, we want at least 8 corresponding image coordinates between left and right image planes.</p>
 <p>We use image features to solve this correspondence problem. Applications of these image-features based mapping can be found in Panorama creation.</p>
@@ -419,17 +438,21 @@ title="Print to PDF"
 <p class="admonition-title">Note</p>
 <p>This leads us to a question. “Which are the best local features to solve the correspondence problem?”</p>
 </div>
-<div class="figure align-default" id="id1">
+<figure class="align-default" id="id1">
 <img alt="../_images/which-features.PNG" src="../_images/which-features.PNG" />
-<p class="caption"><span class="caption-number">Fig. 26 </span><span class="caption-text">Feature selection for correspondence</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 26 </span><span class="caption-text">Feature selection for correspondence</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>Intuitively, <span class = 'high'>corners are the good features</span>, because corners are easier to identify (solving the uniqueness challenge) with low ambiguity.</p>
-<div class="figure align-default" id="id2">
+<figure class="align-default" id="id2">
 <img alt="../_images/corners-as-features.PNG" src="../_images/corners-as-features.PNG" />
-<p class="caption"><span class="caption-number">Fig. 27 </span><span class="caption-text">Corners as features</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 27 </span><span class="caption-text">Corners as features</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p><strong>Harris corner detector gives a mathematical approach for determining the performance of an image patch w.r.t. movement of the patch along x and y axes.</strong></p>
-<div class="section" id="the-math-behind-harris-corner-detector">
+<section id="the-math-behind-harris-corner-detector">
 <h2>The math behind Harris corner detector<a class="headerlink" href="#the-math-behind-harris-corner-detector" title="Permalink to this headline">#</a></h2>
 <p>Each value at every pixel represents its intensity from <span class="math notranslate nohighlight">\(0 \rightarrow 255\)</span>. When the image patch is translated across <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> axis, the measure of intensity at each pixel changes. If this change is drastic, then the location could be a corner. This would be a good candidate for correspondence matching.</p>
 <p>The difference in the intensity between pixel locations of two patches is simply a <span class = 'high'>square of difference of the intensity values at every pixel for first and second patch.</span></p>
@@ -437,10 +460,12 @@ title="Print to PDF"
 <span class="eqno">(20)<a class="headerlink" href="#equation-delta-i" title="Permalink to this equation">#</a></span>\[\Delta I = \sum_{i,j}({I_{i,j}}_{\text{patch-1}}-{I_{i,j}}_{\text{patch-2}})^2\]</div>
 <p>If <span class="math notranslate nohighlight">\(\Delta I\)</span> is low, it shows that the feature is bad. The change in Intensity <span class="math notranslate nohighlight">\(\Delta I\)</span> depends on the movement along <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> axes. This movement along an axis helps us determine the geometry of the patch.</p>
 <p>To acheive the above patch movement along <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> axes, we generalize <code class="docutils literal notranslate"><span class="pre">eq</span></code>{delta-I} as:</p>
-<div class="figure align-default" id="id3">
+<figure class="align-default" id="id3">
 <img alt="../_images/delta-I.PNG" src="../_images/delta-I.PNG" />
-<p class="caption"><span class="caption-number">Fig. 28 </span><span class="caption-text">Change in the intensity of pixels with movement of image patch.</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 28 </span><span class="caption-text">Change in the intensity of pixels with movement of image patch.</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>Using the taylor series expansion, we represent:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -457,10 +482,12 @@ I_x I_y &amp; I_y^2
 \end{bmatrix} \begin{bmatrix} u \\
 v \end{bmatrix}\end{split}\]</div>
 <p><span class="math notranslate nohighlight">\(I_x\)</span> and <span class="math notranslate nohighlight">\(I_y\)</span> are the gradients of Intensity function along <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> axes.</p>
-<div class="figure align-default" id="id4">
+<figure class="align-default" id="id4">
 <img alt="../_images/E_u_v.PNG" src="../_images/E_u_v.PNG" />
-<p class="caption"><span class="caption-number">Fig. 29 </span><span class="caption-text">Harris corner detector equation.</span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 29 </span><span class="caption-text">Harris corner detector equation.</span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p><span class="math notranslate nohighlight">\(w(x,y)\)</span> demonstrates the importance of difference in intensity of pixels at a location. Sometimes, the pixels at the center can be more important than edge pixels.</p>
 <p><span class = 'high'>A good features has <span class="math notranslate nohighlight">\(E(u,v)\)</span> as a very high value.</span></p>
 <div class="tip admonition">
@@ -480,52 +507,70 @@ I_y = \frac{\partial I(x,y)}{\partial y}
 </div>
 <p>Using geometry and the concept of eigen values, the matrix <span class="math notranslate nohighlight">\(M\)</span> is represented in the form of eigen values, <span class="math notranslate nohighlight">\(\lambda _1\)</span> and <span class="math notranslate nohighlight">\(\lambda _2\)</span></p>
 <p>Eigen values represent the maximum change in <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> direction of <span class="math notranslate nohighlight">\(I\)</span>.</p>
-<div class="figure align-default" id="id5">
+<figure class="align-default" id="id5">
 <img alt="../_images/l1-l2.PNG" src="../_images/l1-l2.PNG" />
-<p class="caption"><span class="caption-number">Fig. 30 </span><span class="caption-text">Eigen value representation of gradients <span class="math notranslate nohighlight">\(I_x\)</span> and <span class="math notranslate nohighlight">\(I_y\)</span></span><a class="headerlink" href="#id5" title="Permalink to this image">#</a></p>
-</div>
-<div class="figure align-default" id="id6">
+<figcaption>
+<p><span class="caption-number">Fig. 30 </span><span class="caption-text">Eigen value representation of gradients <span class="math notranslate nohighlight">\(I_x\)</span> and <span class="math notranslate nohighlight">\(I_y\)</span></span><a class="headerlink" href="#id5" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id6">
 <img alt="../_images/class-by-eigen.PNG" src="../_images/class-by-eigen.PNG" />
-<p class="caption"><span class="caption-number">Fig. 31 </span><span class="caption-text">Classification of image patches using eigen values.</span><a class="headerlink" href="#id6" title="Permalink to this image">#</a></p>
-</div>
-<div class="figure align-default" id="id7">
+<figcaption>
+<p><span class="caption-number">Fig. 31 </span><span class="caption-text">Classification of image patches using eigen values.</span><a class="headerlink" href="#id6" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id7">
 <img alt="../_images/l1-l2-1.PNG" src="../_images/l1-l2-1.PNG" />
-<p class="caption"><span class="caption-number">Fig. 32 </span><span class="caption-text">Eigen value representation of <span class="math notranslate nohighlight">\(M\)</span></span><a class="headerlink" href="#id7" title="Permalink to this image">#</a></p>
-</div>
-<div class="figure align-default" id="id8">
+<figcaption>
+<p><span class="caption-number">Fig. 32 </span><span class="caption-text">Eigen value representation of <span class="math notranslate nohighlight">\(M\)</span></span><a class="headerlink" href="#id7" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id8">
 <img alt="../_images/l1-l2-2.PNG" src="../_images/l1-l2-2.PNG" />
-<p class="caption"><span class="caption-number">Fig. 33 </span><span class="caption-text">The Matrix <span class="math notranslate nohighlight">\(H\)</span>.</span><a class="headerlink" href="#id8" title="Permalink to this image">#</a></p>
-</div>
-<div class="figure align-default" id="id9">
+<figcaption>
+<p><span class="caption-number">Fig. 33 </span><span class="caption-text">The Matrix <span class="math notranslate nohighlight">\(H\)</span>.</span><a class="headerlink" href="#id8" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id9">
 <img alt="../_images/l1-l2-3.PNG" src="../_images/l1-l2-3.PNG" />
-<p class="caption"><span class="caption-number">Fig. 34 </span><span class="caption-text">Eigen values of <span class="math notranslate nohighlight">\(H\)</span></span><a class="headerlink" href="#id9" title="Permalink to this image">#</a></p>
-</div>
-<div class="figure align-default" id="id10">
+<figcaption>
+<p><span class="caption-number">Fig. 34 </span><span class="caption-text">Eigen values of <span class="math notranslate nohighlight">\(H\)</span></span><a class="headerlink" href="#id9" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id10">
 <img alt="../_images/l1-l2-4.PNG" src="../_images/l1-l2-4.PNG" />
-<p class="caption"><span class="caption-number">Fig. 35 </span><span class="caption-text">Detection on a chess board</span><a class="headerlink" href="#id10" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 35 </span><span class="caption-text">Detection on a chess board</span><a class="headerlink" href="#id10" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>At every pixel we calculate the matrix <span class="math notranslate nohighlight">\(M\)</span>.</p>
 <p><span class="math notranslate nohighlight">\(\lambda_+\)</span> is the amount of increase in the direction of largest increase. <span class = 'high'>It is responsible for the detection of corners as well as the edges.</span></p>
 <p><span class="math notranslate nohighlight">\(\lambda_-\)</span> is the amount of increase in the direction of smallest increase. <span class = 'high'>It is responsible for the detection of corners in the image.</span></p>
 </div>
-<div class="figure align-default" id="id11">
+<figure class="align-default" id="id11">
 <img alt="../_images/l1-l2-5.PNG" src="../_images/l1-l2-5.PNG" />
-<p class="caption"><span class="caption-number">Fig. 36 </span><span class="caption-text">Detection on a chess board</span><a class="headerlink" href="#id11" title="Permalink to this image">#</a></p>
-</div>
-</div>
-<div class="section" id="the-harris-operator">
+<figcaption>
+<p><span class="caption-number">Fig. 36 </span><span class="caption-text">Detection on a chess board</span><a class="headerlink" href="#id11" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="the-harris-operator">
 <h2>The Harris Operator<a class="headerlink" href="#the-harris-operator" title="Permalink to this headline">#</a></h2>
-<div class="figure align-default" id="id12">
+<figure class="align-default" id="id12">
 <img alt="../_images/harris-operator.PNG" src="../_images/harris-operator.PNG" />
-<p class="caption"><span class="caption-number">Fig. 37 </span><span class="caption-text">Harris Operator for the matrix <span class="math notranslate nohighlight">\(H\)</span> in <code class="docutils literal notranslate"><span class="pre">Fig-33</span></code></span><a class="headerlink" href="#id12" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 37 </span><span class="caption-text">Harris Operator for the matrix <span class="math notranslate nohighlight">\(H\)</span> in <code class="docutils literal notranslate"><span class="pre">Fig-33</span></code></span><a class="headerlink" href="#id12" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>The Harris Operator <span class="math notranslate nohighlight">\(f\)</span> is smoother than <span class="math notranslate nohighlight">\(\lambda_-\)</span>. <span class="math notranslate nohighlight">\(\lambda_-\)</span> is more picky.</p>
-<div class="figure align-default" id="id13">
+<figure class="align-default" id="id13">
 <img alt="../_images/harris-operator1.PNG" src="../_images/harris-operator1.PNG" />
-<p class="caption"><span class="caption-number">Fig. 38 </span><span class="caption-text">Harris Operator v/s <span class="math notranslate nohighlight">\(\lambda_-\)</span></span><a class="headerlink" href="#id13" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 38 </span><span class="caption-text">Harris Operator v/s <span class="math notranslate nohighlight">\(\lambda_-\)</span></span><a class="headerlink" href="#id13" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="text-align:center head"><p>Input</p></th>
@@ -546,8 +591,8 @@ I_y = \frac{\partial I(x,y)}{\partial y}
 <p>Using harris corner detector, it might seem that we can find the corresponding points to find the fundamental matrix. However, these points are just the candidates for the best points to consider for correspondence. We have to remove outliers from these corners, along with other important challenges that arise from Harris Corner detector.</p>
 <p><span class= 'high'>Another important point is that, while Harris corner detector gives you all the corners in the image, it does not give you the correspondence between the corners.</span></p>
 </div>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -561,7 +606,7 @@ I_y = \frac{\partial I(x,y)}{\partial y}
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./cvip"
         },
         predefinedOutput: true

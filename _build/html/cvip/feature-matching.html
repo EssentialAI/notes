@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Feature Matching &#8212; Notes @ The Essential AI</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -35,10 +36,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -178,7 +182,7 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../reinforcement-learning/intro.html">
+  <a class="reference internal" href="../rl/intro.html">
    Reinforcement Learning
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
@@ -188,28 +192,43 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/mab.html">
+    <a class="reference internal" href="../rl/mab.html">
      The Multi-Armed Bandit problem
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/mab-code.html">
+    <a class="reference internal" href="../rl/mab-code.html">
      Coding a simple (random) Multi-Armed Bandit Agent
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/ab-testing.html">
+    <a class="reference internal" href="../rl/ab-testing.html">
      A/B/n testing using online advertising scenario
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/epsilon-greedy.html">
+    <a class="reference internal" href="../rl/epsilon-greedy.html">
      Epsilon Greedy explained
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/optimistic-initial-values.html">
+    <a class="reference internal" href="../rl/optimistic-initial-values.html">
      Optimistic initial values
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../rl/mdp.html">
+     Markov Decision Processes Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../rl/markov-property.html">
+     The Markov Property
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../rl/future-rewards.html">
+     Future Rewards
     </a>
    </li>
   </ul>
@@ -409,7 +428,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="feature-matching">
+  <section class="tex2jax_ignore mathjax_ignore" id="feature-matching">
 <h1>Feature Matching<a class="headerlink" href="#feature-matching" title="Permalink to this headline">#</a></h1>
 <p>Keep in mind that the problem at hand is the 2D <span class="math notranslate nohighlight">\(\rightarrow\)</span> 3D reconstruction problem.</p>
 <ul class="simple">
@@ -419,10 +438,12 @@ title="Print to PDF"
 <li><p>SIFT features provide a better alternative to the above grid search by converting the rectangular image patch to a circle and using gradient values at each pixel. These gradients are represented in the form of histograms by rotating the circle the gradient values are matched between the patches.</p></li>
 </ul>
 <p><span class='high'>This leads us to the feature matching problem. Finding what candidate in the left image maps to what candidate in the right image.</span></p>
-<div class="figure align-default" id="id1">
+<figure class="align-default" id="id1">
 <img alt="../_images/feature-matching.PNG" src="../_images/feature-matching.PNG" />
-<p class="caption"><span class="caption-number">Fig. 49 </span><span class="caption-text">Feature Matching</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 49 </span><span class="caption-text">Feature Matching</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Even though the features can be independent (or a good candidate) there could be more than one match for a feature in the left image to feature in the right image.</p>
@@ -433,11 +454,13 @@ title="Print to PDF"
 <p>Harris corner detector tells if a feature is good candidate for correspondence matching or not, it does not say if the feature is unique or no.</p>
 </div>
 <p>Performance of feature matching is measured in terms of true positives/false positives true negatives/false negatives.</p>
-<div class="figure align-default" id="id2">
+<figure class="align-default" id="id2">
 <img alt="../_images/performance.PNG" src="../_images/performance.PNG" />
-<p class="caption"><span class="caption-number">Fig. 50 </span><span class="caption-text">Performance of Feature Matching</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
-</div>
-<div class="section" id="properties-of-sift-features">
+<figcaption>
+<p><span class="caption-number">Fig. 50 </span><span class="caption-text">Performance of Feature Matching</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="properties-of-sift-features">
 <h2>Properties of SIFT features<a class="headerlink" href="#properties-of-sift-features" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Can handle changes in viewpoint</p>
@@ -449,9 +472,9 @@ title="Print to PDF"
 <li><p>Fast and efficient - can run in real time</p></li>
 <li><p>Lots of code available.</p></li>
 </ul>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="ransac">
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="ransac">
 <h1>RANSAC<a class="headerlink" href="#ransac" title="Permalink to this headline">#</a></h1>
 <p>This is a randomized algorithm. We randomly pick a random sample of points and define a <span class = 'high'>loss function</span>. We choose points that minimize this loss function.</p>
 <p>This is very close to the <span class = 'high'>Model fitting</span> problem in Machine Learning. For example, least squares. Refer Linear Regression for more information.</p>
@@ -473,7 +496,7 @@ title="Print to PDF"
 <li><p>n = minimum # of points required (for line=2, circle = 3)</p></li>
 <li><p>k = # of iterations</p></li>
 </ul>
-</div>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -487,7 +510,7 @@ title="Print to PDF"
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./cvip"
         },
         predefinedOutput: true

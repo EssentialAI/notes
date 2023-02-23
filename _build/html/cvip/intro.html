@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Computer Vision and Image Processing &#8212; Notes @ The Essential AI</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -35,10 +36,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -176,7 +180,7 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../reinforcement-learning/intro.html">
+  <a class="reference internal" href="../rl/intro.html">
    Reinforcement Learning
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
@@ -186,28 +190,43 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/mab.html">
+    <a class="reference internal" href="../rl/mab.html">
      The Multi-Armed Bandit problem
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/mab-code.html">
+    <a class="reference internal" href="../rl/mab-code.html">
      Coding a simple (random) Multi-Armed Bandit Agent
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/ab-testing.html">
+    <a class="reference internal" href="../rl/ab-testing.html">
      A/B/n testing using online advertising scenario
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/epsilon-greedy.html">
+    <a class="reference internal" href="../rl/epsilon-greedy.html">
      Epsilon Greedy explained
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/optimistic-initial-values.html">
+    <a class="reference internal" href="../rl/optimistic-initial-values.html">
      Optimistic initial values
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../rl/mdp.html">
+     Markov Decision Processes Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../rl/markov-property.html">
+     The Markov Property
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../rl/future-rewards.html">
+     Future Rewards
     </a>
    </li>
   </ul>
@@ -414,32 +433,32 @@ title="Print to PDF"
               <div>
                 
   <!-- #region -->
-<div class="tex2jax_ignore mathjax_ignore section" id="computer-vision-and-image-processing">
+<section class="tex2jax_ignore mathjax_ignore" id="computer-vision-and-image-processing">
 <h1>Computer Vision and Image Processing<a class="headerlink" href="#computer-vision-and-image-processing" title="Permalink to this headline">#</a></h1>
 <p><a href="https://essentialai.github.io"><button class="btn">EssentialAI <i class="fa fa-home"></i></button></a></p>
 <p>This jupyter-book contains my notes for the Computer Vision and Image Processing course during the Fall-2022 semester taught by Professor <a class="reference external" href="https://cse.buffalo.edu/~jsyuan/">Junsong Yuan</a>.</p>
-<div class="section" id="course-description">
+<section id="course-description">
 <h2>Course description<a class="headerlink" href="#course-description" title="Permalink to this headline">#</a></h2>
 <p>This course is an introduction to those areas of Artificial Intelligence that deal with fundamental issues and techniques of computer vision and image processing. The emphasis is on physical, mathematical, and information-processing aspects of computational vision and image processing. Topics to be covered include image formation, 3-D vision, edge detection, image convolution, extraction of features such as color, texture, and shape, image segmentation, object detection, and computer vision system architectures and applications.</p>
-</div>
-<div class="section" id="how-to-navigate-through-these-notes">
+</section>
+<section id="how-to-navigate-through-these-notes">
 <h2>How to navigate through these notes<a class="headerlink" href="#how-to-navigate-through-these-notes" title="Permalink to this headline">#</a></h2>
 <p>The sections on the left hand side of this book indicate the chapters and the navigation on the right hand side in individual page is a sub-section in a chapter. <span class = 'high'>Search functionality works throughout the book.</span></p>
-</div>
-<div class="section" id="acknowledgments">
+</section>
+<section id="acknowledgments">
 <h2>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Permalink to this headline">#</a></h2>
 <p>The entire work is gathered from the lecture slides and lecture videos of <a class="reference external" href="https://engineering.buffalo.edu/content/dam/engineering/computer-science-engineering/graduate/courses/graduate-course-syllabi/CSE573-Yuan.pdf">CSE-573 Computer Vision and Image Processing</a> course at UB. All the work is owned by the course instructors. These notes have been hosted after receiving permission from the course instructor.</p>
-</div>
-<div class="section" id="reference-books">
+</section>
+<section id="reference-books">
 <h2>Reference books<a class="headerlink" href="#reference-books" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Computer Vision: Algorithms and Applications, by Richard Szeliski</p></li>
 </ul>
 <!-- #endregion -->
-</div>
+</section>
 <div class="toctree-wrapper compound">
 </div>
-</div>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -453,7 +472,7 @@ title="Print to PDF"
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./cvip"
         },
         predefinedOutput: true

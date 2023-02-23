@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Image Formation and Stereo Vision &#8212; Notes @ The Essential AI</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -35,10 +36,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -178,7 +182,7 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../reinforcement-learning/intro.html">
+  <a class="reference internal" href="../rl/intro.html">
    Reinforcement Learning
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
@@ -188,28 +192,43 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/mab.html">
+    <a class="reference internal" href="../rl/mab.html">
      The Multi-Armed Bandit problem
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/mab-code.html">
+    <a class="reference internal" href="../rl/mab-code.html">
      Coding a simple (random) Multi-Armed Bandit Agent
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/ab-testing.html">
+    <a class="reference internal" href="../rl/ab-testing.html">
      A/B/n testing using online advertising scenario
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/epsilon-greedy.html">
+    <a class="reference internal" href="../rl/epsilon-greedy.html">
      Epsilon Greedy explained
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/optimistic-initial-values.html">
+    <a class="reference internal" href="../rl/optimistic-initial-values.html">
      Optimistic initial values
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../rl/mdp.html">
+     Markov Decision Processes Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../rl/markov-property.html">
+     The Markov Property
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../rl/future-rewards.html">
+     Future Rewards
     </a>
    </li>
   </ul>
@@ -487,32 +506,40 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="image-formation-and-stereo-vision">
+  <section class="tex2jax_ignore mathjax_ignore" id="image-formation-and-stereo-vision">
 <h1>Image Formation and Stereo Vision<a class="headerlink" href="#image-formation-and-stereo-vision" title="Permalink to this headline">#</a></h1>
 <p>Ideally we would like to collect more light for the camera. For this reason, we add lens to the camera. The issue by adding a lens to the camera is that, lens has its own focal point.</p>
 <p>With lens, there arise some issues like chromatic aberration. This is a non-trivial issue.</p>
-<div class="section" id="depth-of-field">
+<section id="depth-of-field">
 <h2>Depth of Field<a class="headerlink" href="#depth-of-field" title="Permalink to this headline">#</a></h2>
 <p>Depth of Field (DOF) is the region in the 3D world where you can clearly see the object. It is also defined as the distance between nearest and farthest objects that are in acceptably sharp focus in an image.</p>
 <p>Aperture can be used to change the depth of field. Smaller the aperture, bigger the depth of field.</p>
-<div class="figure align-default" id="id1">
+<figure class="align-default" id="id1">
 <img alt="../_images/dof.PNG" src="../_images/dof.PNG" />
-<p class="caption"><span class="caption-number">Fig. 10 </span><span class="caption-text">Changing DOF using aperture</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
-</div>
-<div class="figure align-default" id="id2">
+<figcaption>
+<p><span class="caption-number">Fig. 10 </span><span class="caption-text">Changing DOF using aperture</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id2">
 <img alt="../_images/dof1.PNG" src="../_images/dof1.PNG" />
-<p class="caption"><span class="caption-number">Fig. 11 </span><span class="caption-text">Changing DOF using aperture</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
-</div>
-<div class="figure align-default" id="id3">
+<figcaption>
+<p><span class="caption-number">Fig. 11 </span><span class="caption-text">Changing DOF using aperture</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id3">
 <img alt="../_images/exposure_triangle.PNG" src="../_images/exposure_triangle.PNG" />
-<p class="caption"><span class="caption-number">Fig. 12 </span><span class="caption-text">Exposure Triangle</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 12 </span><span class="caption-text">Exposure Triangle</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>Aperture, shutter speed and ISO are neither intrinsic nor extrinsic parameters.</p>
 <p>Field of view is another parameter that is dependent on the screen resolution.</p>
-<div class="figure align-default" id="id4">
+<figure class="align-default" id="id4">
 <img alt="../_images/fov.PNG" src="../_images/fov.PNG" />
-<p class="caption"><span class="caption-number">Fig. 13 </span><span class="caption-text">Field of view</span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 13 </span><span class="caption-text">Field of view</span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>Size of field of view governed by size of the camera retina.</p>
 <div class="math notranslate nohighlight">
 \[
@@ -520,8 +547,8 @@ title="Print to PDF"
 \]</div>
 <p>Smaller FOV = larger the focal length.</p>
 <p>So far we have talked about the geometry of the camera, now we shall discuss about the color of the image.</p>
-</div>
-<div class="section" id="photometric-imaging">
+</section>
+<section id="photometric-imaging">
 <h2>Photometric Imaging<a class="headerlink" href="#photometric-imaging" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Illuminating and light sources</p></li>
@@ -543,9 +570,9 @@ title="Print to PDF"
 <li><p>Simple to fabricate, lower sensitivity, lower power. (Surveillance cameras use CMOS).</p></li>
 </ul>
 </div>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="stereo-vision-and-multiple-view-geometry">
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="stereo-vision-and-multiple-view-geometry">
 <h1>Stereo Vision and Multiple View Geometry<a class="headerlink" href="#stereo-vision-and-multiple-view-geometry" title="Permalink to this headline">#</a></h1>
 <p>Until this section, the main focus of the course is finding the intrinsic and extrinsic parameters of a camera. For 3D <span class="math notranslate nohighlight">\(\rightarrow\)</span> 2D mapping, we have 11 paramters.</p>
 <p>This section talks about the 2D <span class="math notranslate nohighlight">\(\rightarrow\)</span> 3D mapping. Given an image coordinate, can we approximate the 3D location of the object. This is an ill-posed problem.</p>
@@ -561,15 +588,17 @@ title="Print to PDF"
 <li><p>Shadows</p></li>
 <li><p>–</p></li>
 </ul>
-<div class="section" id="triangulation">
+<section id="triangulation">
 <h2>Triangulation<a class="headerlink" href="#triangulation" title="Permalink to this headline">#</a></h2>
 <p>Stereo vision determines the position of a point in space by finding the intersection of the two lines passing through the centre of projection and projection of object point on image planes.</p>
-<div class="figure align-default" id="id5">
+<figure class="align-default" id="id5">
 <img alt="../_images/stereo1.PNG" src="../_images/stereo1.PNG" />
-<p class="caption"><span class="caption-number">Fig. 14 </span><span class="caption-text">Triangulation</span><a class="headerlink" href="#id5" title="Permalink to this image">#</a></p>
-</div>
-</div>
-<div class="section" id="core-problems-in-stereo">
+<figcaption>
+<p><span class="caption-number">Fig. 14 </span><span class="caption-text">Triangulation</span><a class="headerlink" href="#id5" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="core-problems-in-stereo">
 <h2>Core problems in stereo<a class="headerlink" href="#core-problems-in-stereo" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p><strong>Correspondence</strong>:
@@ -579,21 +608,25 @@ Given corresponding points in two images, find camera matrices, position and pos
 <li><p><strong>Scene geometry</strong>:
 Find coordinates of 3D point from its projection into 2 or multiple images.</p></li>
 </ul>
-<div class="section" id="disparity">
+<section id="disparity">
 <h3>Disparity<a class="headerlink" href="#disparity" title="Permalink to this headline">#</a></h3>
 <p>Disparity is defined as the difference in the location of a feature point between the right and left images. <span class = 'high'>Disparity is high for closer objects and low for distant objects.</span></p>
-<div class="figure align-default" id="id6">
+<figure class="align-default" id="id6">
 <img alt="../_images/disparity.PNG" src="../_images/disparity.PNG" />
-<p class="caption"><span class="caption-number">Fig. 15 </span><span class="caption-text">Disparity</span><a class="headerlink" href="#id6" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 15 </span><span class="caption-text">Disparity</span><a class="headerlink" href="#id6" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>disparity <span class="math notranslate nohighlight">\(d = x^l-x^r\)</span>.</p>
 <p><span class="math notranslate nohighlight">\(x^l\)</span> is the pixel location in the left image.
 <span class="math notranslate nohighlight">\(x^r\)</span> is the pixel location in the right image.</p>
 <p><strong>Depth from disparity</strong></p>
-<div class="figure align-default" id="id7">
+<figure class="align-default" id="id7">
 <img alt="../_images/depth_from_disparity.PNG" src="../_images/depth_from_disparity.PNG" />
-<p class="caption"><span class="caption-number">Fig. 16 </span><span class="caption-text">Depth from Disparity</span><a class="headerlink" href="#id7" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 16 </span><span class="caption-text">Depth from Disparity</span><a class="headerlink" href="#id7" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>B - Baseline,
 Z - Depth,
 d - Disparity,
@@ -602,13 +635,15 @@ f - focal length</p>
 <p><em>Keep in mind that the image plane considered here is the virtual image plane.</em></p>
 <p>Another point to note that disparity calculation after the camera are calibrated and both the image planes are along the same line. To achieve this, we perform image rectification and image plane alignment.</p>
 <p>Once the correspondence problem is solved, we can calculate the depth at every point in the image.</p>
-</div>
-<div class="section" id="epipolar-geometry">
+</section>
+<section id="epipolar-geometry">
 <h3>Epipolar Geometry<a class="headerlink" href="#epipolar-geometry" title="Permalink to this headline">#</a></h3>
-<div class="figure align-default" id="id8">
+<figure class="align-default" id="id8">
 <img alt="../_images/epipolar_geometry.PNG" src="../_images/epipolar_geometry.PNG" />
-<p class="caption"><span class="caption-number">Fig. 17 </span><span class="caption-text">Epipolar Geometry</span><a class="headerlink" href="#id8" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 17 </span><span class="caption-text">Epipolar Geometry</span><a class="headerlink" href="#id8" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <ul class="simple">
 <li><p><strong>Baseline</strong> - Line joining the camera centers.</p></li>
 <li><p><strong>Epipole</strong> - Point of intersection of baseline with the image plane.</p></li>
@@ -617,29 +652,35 @@ f - focal length</p>
 <li><p>All epipolar lines intersect at the epipole.</p></li>
 </ul>
 <p>Let us consider an example where the cameras are not aligned and are required to be recitified.</p>
-<div class="figure align-default" id="id9">
+<figure class="align-default" id="id9">
 <img alt="../_images/epipolar_1.PNG" src="../_images/epipolar_1.PNG" />
-<p class="caption"><span class="caption-number">Fig. 18 </span><span class="caption-text">Cameras not aligned</span><a class="headerlink" href="#id9" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 18 </span><span class="caption-text">Cameras not aligned</span><a class="headerlink" href="#id9" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>Once the images are aligned, the epiholes are at infinity.</p>
-<div class="figure align-default" id="id10">
+<figure class="align-default" id="id10">
 <img alt="../_images/epiholes.PNG" src="../_images/epiholes.PNG" />
-<p class="caption"><span class="caption-number">Fig. 19 </span><span class="caption-text">Epiholes when cameras are aligned.</span><a class="headerlink" href="#id10" title="Permalink to this image">#</a></p>
-</div>
-</div>
-<div class="section" id="image-rectification">
+<figcaption>
+<p><span class="caption-number">Fig. 19 </span><span class="caption-text">Epiholes when cameras are aligned.</span><a class="headerlink" href="#id10" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="image-rectification">
 <h3>Image Rectification<a class="headerlink" href="#image-rectification" title="Permalink to this headline">#</a></h3>
 <p>This process is the correction of cameras so that cameras (image planes of cameras) are parallel to the baselines.</p>
 <p><em>This is done when the two cameras do not have the same focal lengths or are not parallel to the baseline.</em></p>
 <p><strong>Image Rectification is a projective transformation.</strong></p>
-<div class="figure align-default" id="id11">
+<figure class="align-default" id="id11">
 <img alt="../_images/rectification.PNG" src="../_images/rectification.PNG" />
-<p class="caption"><span class="caption-number">Fig. 20 </span><span class="caption-text">Image Rectification example.</span><a class="headerlink" href="#id11" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 20 </span><span class="caption-text">Image Rectification example.</span><a class="headerlink" href="#id11" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>Advantage of image rectification is that the search for a corresponding pixel from left and right image becomes a <span class = 'high'>linear search</span>. You only need to search for the pixel along the epipolar line that is already rectified.</p>
 <p>This leads to the correspondence problem that we want to solve to begin with.</p>
-</div>
-<div class="section" id="basic-stereo-matching-algorithm">
+</section>
+<section id="basic-stereo-matching-algorithm">
 <h3>Basic Stereo matching algorithm<a class="headerlink" href="#basic-stereo-matching-algorithm" title="Permalink to this headline">#</a></h3>
 <p>As the images are rectified, we can perform a linear search algorithm to find the corresponding pixel from left image to right image.</p>
 <p>This leads us to the correspondence problem. How to find the matching pixel along the line?</p>
@@ -648,10 +689,12 @@ f - focal length</p>
 <p>You calculate SSD or NCC for every pixel. <span class = 'high'>The lower the SSD, the better. The higher the value of NCC, the better the match.</span></p>
 <p>The size of the window is a hyperparameter to be tuned. If the window size is large - there will be a smooth disparity map, and low details.</p>
 <p>The window searching method fails if the selected pixel for searching is generic, or noise.</p>
-<div class="figure align-default" id="id12">
+<figure class="align-default" id="id12">
 <img alt="../_images/sim_failure.PNG" src="../_images/sim_failure.PNG" />
-<p class="caption"><span class="caption-number">Fig. 21 </span><span class="caption-text">Window based similarity search failure.</span><a class="headerlink" href="#id12" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 21 </span><span class="caption-text">Window based similarity search failure.</span><a class="headerlink" href="#id12" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>Closer objects have more disparity.</p>
 <div class="math notranslate nohighlight">
 \[
@@ -663,9 +706,9 @@ f - focal length</p>
 <li><p>Ordering constraint</p></li>
 <li><p>Smoothness constraint (neighboring pixels are similar (expect at edges))</p></li>
 </ul>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -679,7 +722,7 @@ f - focal length</p>
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./cvip"
         },
         predefinedOutput: true

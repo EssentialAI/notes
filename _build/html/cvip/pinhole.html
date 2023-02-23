@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Introduction and the Pinhole camera &#8212; Notes @ The Essential AI</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -35,10 +36,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -178,7 +182,7 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../reinforcement-learning/intro.html">
+  <a class="reference internal" href="../rl/intro.html">
    Reinforcement Learning
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
@@ -188,28 +192,43 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/mab.html">
+    <a class="reference internal" href="../rl/mab.html">
      The Multi-Armed Bandit problem
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/mab-code.html">
+    <a class="reference internal" href="../rl/mab-code.html">
      Coding a simple (random) Multi-Armed Bandit Agent
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/ab-testing.html">
+    <a class="reference internal" href="../rl/ab-testing.html">
      A/B/n testing using online advertising scenario
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/epsilon-greedy.html">
+    <a class="reference internal" href="../rl/epsilon-greedy.html">
      Epsilon Greedy explained
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../reinforcement-learning/optimistic-initial-values.html">
+    <a class="reference internal" href="../rl/optimistic-initial-values.html">
      Optimistic initial values
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../rl/mdp.html">
+     Markov Decision Processes Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../rl/markov-property.html">
+     The Markov Property
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../rl/future-rewards.html">
+     Future Rewards
     </a>
    </li>
   </ul>
@@ -471,7 +490,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="introduction-and-the-pinhole-camera">
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction-and-the-pinhole-camera">
 <h1>Introduction and the Pinhole camera<a class="headerlink" href="#introduction-and-the-pinhole-camera" title="Permalink to this headline">#</a></h1>
 <p>Have you ever wondered what complex mathematics runs behind the miniature camera that we use in our every day life. Point and shoot cameras are ubiquotous to a point that we take camera technology for granted.</p>
 <p>Consider an image of a railway track.</p>
@@ -505,8 +524,8 @@ title="Print to PDF"
 </li>
 </ol>
 <p>To model a camera, one must make sure to preserve both geometry and semantics of the scene. Some applications of computer vision include but not limited to <a class="reference external" href="https://www.semanticscholar.org/paper/Single-view-modeling-of-free-form-scenes-Zhang-Dugas-Phocion/0193a8ca0dc5c34cb81cccb8070666d6275738c7">Single View modelling</a>, Detection and Recognition, <a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S1077314217301170">Visual Question and Answering</a>, Optical Character Recognition, Entertainment (e.g., Snapchat), Shape Reconstruction using depth sensors, <a class="reference external" href="https://grail.cs.washington.edu/rome/">Building rome in a day!</a>, 3D Scanning, Medical Imaging and so on.</p>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="image-formation">
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="image-formation">
 <h1>Image Formation<a class="headerlink" href="#image-formation" title="Permalink to this headline">#</a></h1>
 <p>How a colorful image is formed? All the images are a resultant of the following entities:</p>
 <ol class="simple">
@@ -517,24 +536,30 @@ title="Print to PDF"
 </ol>
 <p><span class = 'high'>The focus of this course is predominantly on the Camera Properties.</span> The image formation requires a light source (e.g., sun) continuously emits photons. These photons are reflected by the surface and a portion of this light is directed towards the camera.</p>
 <p><strong>The sensor plane (the film) has physical existence, but the image plane is virtual.</strong> The image plane is flipped upside down as compared to the sensor plane.</p>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="pinhole-camera-model">
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="pinhole-camera-model">
 <h1>Pinhole camera model<a class="headerlink" href="#pinhole-camera-model" title="Permalink to this headline">#</a></h1>
 <p>The pinhole camera makes sure that every unique point in the physical space falls on the film.</p>
-<div class="figure align-default" id="id1">
+<figure class="align-default" id="id1">
 <img alt="../_images/pinhole_1.PNG" src="../_images/pinhole_1.PNG" />
-<p class="caption"><span class="caption-number">Fig. 1 </span><span class="caption-text">Pinhole camera</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
-</div>
-<div class="figure align-default" id="id2">
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Pinhole camera</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id2">
 <img alt="../_images/pinhole_2.PNG" src="../_images/pinhole_2.PNG" />
-<p class="caption"><span class="caption-number">Fig. 2 </span><span class="caption-text">Pinhole camera Model</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Pinhole camera Model</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>The image that we see on the screen after taking an image is virtual image plane. Same phenomenon happens in human eyes.</p>
 <p>Zooming in and Zooming out changes the focal length of a camera. (Not digital zoom, optical zoom)</p>
-<div class="figure align-default" id="id3">
+<figure class="align-default" id="id3">
 <img alt="../_images/focal_length.PNG" src="../_images/focal_length.PNG" />
-<p class="caption"><span class="caption-number">Fig. 3 </span><span class="caption-text">Pinhole camera 2D representation</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Pinhole camera 2D representation</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>The above diagram gives us the first equation for image formation in computer vision. Given a 3D point <span class="math notranslate nohighlight">\(P =(X,Y,Z)^T\)</span>, the camera projects this point to onto a <span class="math notranslate nohighlight">\(2D\)</span> image plane to <span class="math notranslate nohighlight">\(p = (x,y)^T\)</span>. From the above figure:</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{gather*}
@@ -562,7 +587,7 @@ title="Print to PDF"
 </div>
 <p>When the distance between camera and the object is too large (god’s view), the difference in sizes of closer objects and far objects is not preserved.</p>
 <p><span class="math notranslate nohighlight">\(x = sX, y = sY, \text{ where } s=\frac{f}{Z_0}\)</span>, <span class="math notranslate nohighlight">\(Z_0\)</span> is the distance between camera and the object.</p>
-<div class="section" id="projection-matrix-and-the-intrinsic-parameters">
+<section id="projection-matrix-and-the-intrinsic-parameters">
 <h2>Projection Matrix and the Intrinsic parameters<a class="headerlink" href="#projection-matrix-and-the-intrinsic-parameters" title="Permalink to this headline">#</a></h2>
 <div class="math notranslate nohighlight" id="equation-second-eq">
 <span class="eqno">(2)<a class="headerlink" href="#equation-second-eq" title="Permalink to this equation">#</a></span>\[\begin{split}Z \begin{pmatrix}
@@ -638,8 +663,8 @@ f_x &amp; 0 &amp; o_x \\
 <p><span class="math notranslate nohighlight">\(\gamma\)</span> - when you zoom in and zoom out, the <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> co-ordinates are changed proportionally. However if there is an unproportional change in <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> axes, <span class="math notranslate nohighlight">\(\gamma\)</span> takes care of that. <span class="math notranslate nohighlight">\(\gamma\)</span> is also called the <code class="docutils literal notranslate"><span class="pre">aspect</span> <span class="pre">ratio</span></code> of the pixel.</p>
 <p><span class="math notranslate nohighlight">\(s\)</span> - skew of the sensor pixel, i.e., if the pixel is a parallelogram and not a square.</p>
 <p><strong>There are 5 intrinsic parameters for a camera.</strong> Refer <a class="reference internal" href="#equation-intrinsic-eq">(5)</a></p>
-</div>
-<div class="section" id="extrinsic-parameters-of-a-camera">
+</section>
+<section id="extrinsic-parameters-of-a-camera">
 <h2>Extrinsic parameters of a camera<a class="headerlink" href="#extrinsic-parameters-of-a-camera" title="Permalink to this headline">#</a></h2>
 <p>The extrinsic parameters come into picture, even before shooting an image. Where the camera is located and it’s angle. <strong>(Rotation and Translation)</strong>.</p>
 <p>These are the parameters that identify uniquely the transformation between the <span class = 'high'>unknown camera reference frame</span> and the <span class='high'>known world reference frame.</span></p>
@@ -648,10 +673,12 @@ f_x &amp; 0 &amp; o_x \\
 <li><p>Finding the translation vector between the relative positions of the origins of the two reference frames.</p></li>
 <li><p>Finding the rotation matrix that brings the corresponding axes of the two frames into alignment (i.e., onto each other).</p></li>
 </ol>
-<div class="figure align-default" id="id4">
+<figure class="align-default" id="id4">
 <img alt="../_images/rot_translate.PNG" src="../_images/rot_translate.PNG" />
-<p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">Rotation and Translation from world coordinates to camera coordinates.</span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Rotation and Translation from world coordinates to camera coordinates.</span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>Using the extrinsic camera parameters, we can find the relation between the coordinates of a point <span class="math notranslate nohighlight">\(P\)</span> in the world <span class="math notranslate nohighlight">\((P_w)\)</span> and camera <span class="math notranslate nohighlight">\((P_c)\)</span> coordinates:</p>
 <div class="math notranslate nohighlight" id="equation-extrinsic">
 <span class="eqno">(6)<a class="headerlink" href="#equation-extrinsic" title="Permalink to this equation">#</a></span>\[P_c = R(P_w-T)\]</div>
@@ -699,8 +726,8 @@ Z_c = R_3^T(P_w-T)
 <p class="admonition-title">What is a camera?</p>
 <p>Camera is nothing but a 3D point to 2D point mapping function that has 11 parameters (intrinsic and extrinsic).</p>
 </div>
-</div>
-<div class="section" id="d-to-2d-mapping-both-intrinsic-and-extrinsic">
+</section>
+<section id="d-to-2d-mapping-both-intrinsic-and-extrinsic">
 <h2>3D to 2D mapping (both intrinsic and extrinsic)<a class="headerlink" href="#d-to-2d-mapping-both-intrinsic-and-extrinsic" title="Permalink to this headline">#</a></h2>
 <ol class="simple">
 <li><p>Given an image of an object, we would like to find the intrinsic and extrinsic parameters of a camera.</p></li>
@@ -749,7 +776,7 @@ M = M_{in}.M_{ex} = \begin{bmatrix}m_{11} &amp; m_{12} &amp; m_{13} &amp; m_{14}
 m_{21} &amp; m_{22} &amp; m_{23} &amp; m_{24}  \\
 m_{31} &amp; m_{32} &amp; m_{33} &amp; m_{34} \end{bmatrix}
 \end{split}\]</div>
-<div class="section" id="intuition-behind-the-3d-rightarrow-2d-mapping-in-a-camera">
+<section id="intuition-behind-the-3d-rightarrow-2d-mapping-in-a-camera">
 <h3>Intuition behind the 3D <span class="math notranslate nohighlight">\(\rightarrow\)</span> 2D mapping in a camera.<a class="headerlink" href="#intuition-behind-the-3d-rightarrow-2d-mapping-in-a-camera" title="Permalink to this headline">#</a></h3>
 <div class="math notranslate nohighlight" id="equation-mapping-matrix">
 <span class="eqno">(10)<a class="headerlink" href="#equation-mapping-matrix" title="Permalink to this equation">#</a></span>\[\begin{split}s\begin{bmatrix}x\\
@@ -768,10 +795,12 @@ sx = m_{11}X_w + m_{12}Y_w + m_{13}Z_w + m_{14} \\
 sy = m_{21}X_w + m_{22}Y_w + m_{23}Z_w + m_{24} \\
 s = m_{31}X_w + m_{32}Y_w + m_{33}Z_w + m_{34}\end{split}\]</div>
 <p>To solve for the matrix <span class="math notranslate nohighlight">\(M\)</span>,</p>
-<div class="figure align-default" id="id5">
+<figure class="align-default" id="id5">
 <img alt="../_images/matrix_m.PNG" src="../_images/matrix_m.PNG" />
-<p class="caption"><span class="caption-number">Fig. 5 </span><span class="caption-text">Solving for the matrix <span class="math notranslate nohighlight">\(M\)</span></span><a class="headerlink" href="#id5" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">Solving for the matrix <span class="math notranslate nohighlight">\(M\)</span></span><a class="headerlink" href="#id5" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>where the first matrix is of size <span class="math notranslate nohighlight">\(2n \times 12\)</span> (<span class="math notranslate nohighlight">\(n\)</span> is the number of available points.)</p>
 <p>In the above homogeneous linear equation <span class="math notranslate nohighlight">\(Ax=0\)</span>, we know the values of image coordinates and the real-world coordinates. We are required for find the elements of the matrix <span class="math notranslate nohighlight">\(M\)</span>. The above equation has infinite solutions for <span class="math notranslate nohighlight">\(Ax = 0\)</span>, since we can randomly scale <span class="math notranslate nohighlight">\(x\)</span> with a scalar <span class="math notranslate nohighlight">\(\lambda\)</span> such that <span class="math notranslate nohighlight">\(A(\lambda x)= 0\)</span>. Therefore, we assume <span class="math notranslate nohighlight">\(||x||=1\)</span>, solving the equation can be converted to:</p>
 <div class="math notranslate nohighlight">
@@ -833,16 +862,16 @@ m_1^Tm_3 = o_x \]</div>
 \[o_x = m_1^Tm_3, \enspace o_y = m_2^Tm_3\]</div>
 <div class="math notranslate nohighlight">
 \[f_x = \sqrt{m_1^Tm_1 - o_x^2}, \enspace f_y = \sqrt{m_2^Tm_2 - o_y^2}\]</div>
-</div>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="summary">
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="summary">
 <h1>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">#</a></h1>
 <p>This chapter discusses about the pinhole camera model. The intrinsic and extrinsic camera paramters. Given a 3D world coordinates of an object, a camera performs a 3D <span class="math notranslate nohighlight">\(\rightarrow\)</span> 2D mapping of the point onto an image plane. There are a total of 11 paramters for any camera to perform this perspective projection mapping.</p>
 <p>This chapter also explains the mathematics used to find the intrinsic and extrinsic parameters of a camera using image coordinates and world coordinates. Given an image of an object, and <span class="math notranslate nohighlight">\(n\)</span> world coordinates and image coordinates, we discuss the mathematics to find the matrix <span class="math notranslate nohighlight">\(M = M_{in}\cdot M_{ex}\)</span> that would help us map any 3D point in real world to a 2D point on image plane.</p>
 <p>The next chapter provides the code for the above mathematics. We use chessboard corners as objects and try to find the intrinsic and extrinsic parameters of a given camera.</p>
 <!-- ### Rotation matrix explained -->
-</div>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -856,7 +885,7 @@ m_1^Tm_3 = o_x \]</div>
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./cvip"
         },
         predefinedOutput: true

@@ -24,3 +24,7 @@ chapters:
   - file: rl/ab-testing.ipynb
   - file: rl/epsilon-greedy.ipynb
   - file: rl/optimistic-initial-values.ipynb
+  - file: rl/mdp.ipynb
+  - file: rl/markov-property.ipynb
+  - file: rl/future-rewards.ipynb
+

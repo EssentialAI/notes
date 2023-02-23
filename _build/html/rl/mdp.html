@@ -1,0 +1,700 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Markov Decision Processes Introduction &#8212; Notes @ The Essential AI</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="canonical" href="https://essentialai.github.io/essentialai.github.io/rl/mdp.html" />
+    <link rel="shortcut icon" href="../_static/brain1.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="The Markov Property" href="markov-property.html" />
+    <link rel="prev" title="Optimistic initial values" href="optimistic-initial-values.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/lightmode.svg" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Notes @ The Essential AI</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome to Notes @ Essential AI
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../cvip/intro.html">
+   Computer Vision and Image Processing
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../cvip/pinhole.html">
+     Introduction and the Pinhole camera
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../cvip/CVIP_Project1.html">
+     CVIP-project-1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../cvip/image-transformations.html">
+     Image Transformations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../cvip/image-formation.html">
+     Image Formation and Stereo Vision
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../cvip/image-rectification.html">
+     How to rectify two cameras?
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../cvip/image-features.html">
+     Image Features and Matching
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../cvip/using-scale-as-feature.html">
+     Using scale as a feature for correspondence
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../cvip/feature-matching.html">
+     Feature Matching
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../cvip/image-filtering.html">
+     Image Filtering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../cvip/image-fourier-analysis.html">
+     Image Fourier Analysis
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="intro.html">
+   Reinforcement Learning
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="mab.html">
+     The Multi-Armed Bandit problem
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="mab-code.html">
+     Coding a simple (random) Multi-Armed Bandit Agent
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="ab-testing.html">
+     A/B/n testing using online advertising scenario
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="epsilon-greedy.html">
+     Epsilon Greedy explained
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="optimistic-initial-values.html">
+     Optimistic initial values
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Markov Decision Processes Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="markov-property.html">
+     The Markov Property
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="future-rewards.html">
+     Future Rewards
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/EssentialAI/notes/main?urlpath=tree/rl/mdp.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/rl/mdp.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Markov Decision Processes Introduction
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#environment-and-notations">
+   Environment and Notations
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gridworld">
+     Gridworld
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gridworld-states">
+     Gridworld States
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#more-terminology">
+     More Terminology
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#episodic-v-s-non-episodic-tasks">
+     Episodic v/s Non-episodic tasks
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#more-about-environment">
+     More about environment
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#policy">
+     Policy
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#deterministic-policy-vs-stochastic-policy">
+       Deterministic Policy vs Stochastic Policy
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#rewards">
+     Rewards
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Markov Decision Processes Introduction</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Markov Decision Processes Introduction
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#environment-and-notations">
+   Environment and Notations
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gridworld">
+     Gridworld
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gridworld-states">
+     Gridworld States
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#more-terminology">
+     More Terminology
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#episodic-v-s-non-episodic-tasks">
+     Episodic v/s Non-episodic tasks
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#more-about-environment">
+     More about environment
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#policy">
+     Policy
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#deterministic-policy-vs-stochastic-policy">
+       Deterministic Policy vs Stochastic Policy
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#rewards">
+     Rewards
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="markov-decision-processes-introduction">
+<h1>Markov Decision Processes Introduction<a class="headerlink" href="#markov-decision-processes-introduction" title="Permalink to this headline">#</a></h1>
+<p>Markov Decision Processes is the most fundamental concept that you will learn in this course because everything in the future sections of this course is based on this concept. Q-Learning, Deep Q-Learning etc., are all derived from this framework.</p>
+<p>To have a continued context of what we are doing, we shall use the example of the Grid World Environment. The reason for choosing this environment is that all the states and transition proababilties can be made visible in an intuitive way.</p>
+<p>We start with learning about the Markov property and the Markov Models. Markov models have a wide range of applications, including:</p>
+<ol class="simple">
+<li><p>Google’s PageRank algorithm was derived based on Markov model.</p></li>
+<li><p>Hidden Markov models are an important algorithm for speech recognition and genomics.</p></li>
+<li><p>Markov Chain Monte Carlo has become widely popular for its application in Bayesian Machine Learning.</p></li>
+<li><p>Finance (Random Walk Hypothesis).</p></li>
+<li><p>Control Systems.</p></li>
+</ol>
+<p>Once we discussion MDP, we shall build upon these concepts and introduce definitions for Reward, Value functions, Bellman Equation, and so on.</p>
+<p>Once these definitions are introduced, we shall discuss algorithms to solve the Bellman equation.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="environment-and-notations">
+<h1>Environment and Notations<a class="headerlink" href="#environment-and-notations" title="Permalink to this headline">#</a></h1>
+<p>Let’s understand the environment that we will be working with throughout this section. We shall also define some essential notation for RL in this page.</p>
+<section id="gridworld">
+<h2>Gridworld<a class="headerlink" href="#gridworld" title="Permalink to this headline">#</a></h2>
+<p>Gridworld is the simplst environment that is you can use in RL to enables to think about and understand all the concepts. Gridworld is the perfect sized environment without being too complex or too simple.</p>
+<figure class="align-default" id="id1">
+<img alt="../_images/gridworld.PNG" src="../_images/gridworld.PNG" />
+<figcaption>
+<p><span class="caption-number">Fig. 63 </span><span class="caption-text">Gridworld Environment</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>For the purpose of this page, Gridworld is considered at a <span class="math notranslate nohighlight">\(3 \times 4\)</span> table that your agent(bot) lives on. The agent can move <strong>up, down, left, or right</strong> one square at a time. The goal (to be defined) of the agent is to reach the top right corner which is considered to be the winning state (to be defined) to receive the reward (to be defined). Just underneath the winning state is the losing state with a negative reward. The goal of the agent is not only to reach the winning state, but also to avoid the losing state.</p>
+<p>In RL, the agent does not have any concept of winning or losing, it only receives a reward (either positive or negative). The only objective of the agent is to maximize the overall reward. The agent simply behaves like “I want to go the top right box as it gives me the maximum reward.”</p>
+<p>Having established the Gridworld environment, lets define the building blocks of the environment.</p>
+</section>
+<section id="gridworld-states">
+<h2>Gridworld States<a class="headerlink" href="#gridworld-states" title="Permalink to this headline">#</a></h2>
+<p>A state can simply be defined as the position of the state. The position <code class="docutils literal notranslate"><span class="pre">(2,0)</span></code> simply defines the initial state of the agent. The winning state is denoted by <code class="docutils literal notranslate"><span class="pre">(0,3)</span></code>. Note that there is a wall at <code class="docutils literal notranslate"><span class="pre">(1,1)</span></code> which represents a state that the agent cannot occupy. See the image below for reference.</p>
+<figure class="align-default" id="id2">
+<img alt="../_images/gridworld-states.PNG" src="../_images/gridworld-states.PNG" />
+<figcaption>
+<p><span class="caption-number">Fig. 64 </span><span class="caption-text">Gridworld States</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Set of all possible states is known as the State Space.</strong> For the Gridworld environment, the state space is {‘up’, ‘down’, ‘left’, ‘right’}.</p>
+</section>
+<section id="more-terminology">
+<h2>More Terminology<a class="headerlink" href="#more-terminology" title="Permalink to this headline">#</a></h2>
+<p>The point of Reinforcement Learning is that we want to reinforce the desired behavior of the agent. This implies that the agent does not play our gridworld game just once, it plays the again multiple times and learn from the feedback it received each time. We hope that by the end, the agent will learn to play the game and receive the maximum reward. <strong>These concepts seem pretty intuitive because thats how the human learning experience works. However, do not take these simple concepts for granted because modelling this learning behaviour in computers takes a lot of effort.</strong> Instead of calling the gridworld a game, we can each play of the agent an <code class="docutils literal notranslate"><span class="pre">episode.</span></code> The agent learns from each episode to find an optimal way to maximize the reward.</p>
+<p>Let’s define the meanings of winning and losing states. Just because the agent lands in a state and receives +1 or -1 reward, does not mean that the episode is over. Each state can give you any reward and is not an indication whether a state is terminal or not. <strong>A Terminal state is a state that ends an episode.</strong> (Can be thought of a life in super mario). So far we have defined <strong>episodes, state spaces and terminal states.</strong></p>
+</section>
+<section id="episodic-v-s-non-episodic-tasks">
+<h2>Episodic v/s Non-episodic tasks<a class="headerlink" href="#episodic-v-s-non-episodic-tasks" title="Permalink to this headline">#</a></h2>
+<p>Gridworld and Super-mario are examples of episodic tasks. On the other hand, we can have non-episodic tasks, also called continuous tasks. One example is controlling the temperature in a room. For most RL algorithms it is assumed that the task at hand is episodic.</p>
+</section>
+<section id="more-about-environment">
+<h2>More about environment<a class="headerlink" href="#more-about-environment" title="Permalink to this headline">#</a></h2>
+<p>The envioronment describes the “world” that the agent lives in. Examples: Pong, Super-mario, Gridworld, Chess. When we say an environment is solved, we mean that we have built an agent that receices reward that surpasses a threshold that we have set.</p>
+</section>
+<section id="policy">
+<h2>Policy<a class="headerlink" href="#policy" title="Permalink to this headline">#</a></h2>
+<p>The policy can be thought as the “Brain” of the agent. The policy is a “function” that maps a state to an action. The important point to note is that a policy (almost) always leads to a winning state. In the below figure we see <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">policies</span></code> that lead to the winning state.</p>
+<figure class="align-default" id="id3">
+<img alt="../_images/policy.PNG" src="../_images/policy.PNG" />
+<figcaption>
+<p><span class="caption-number">Fig. 65 </span><span class="caption-text">Policy</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="deterministic-policy-vs-stochastic-policy">
+<h3>Deterministic Policy vs Stochastic Policy<a class="headerlink" href="#deterministic-policy-vs-stochastic-policy" title="Permalink to this headline">#</a></h3>
+<p>One confusion while defining a policy might be where it should be deterministic or stochastic. Is it a function in computer program? An equation? A Neural Network?</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\text{Deterministic: } a = \pi(s) \\
+\text{Stochastic: } a = \pi(a|s)
+\end{split}\]</div>
+<p>For Stochastic policy <span class="math notranslate nohighlight">\(\pi\)</span> is a probability distribution of all possible actions given a state <span class="math notranslate nohighlight">\(s\)</span>. For example a stochastic policy would be to use epsilon-greedy to select an action given a state. <strong>Action space is the set of all actions, analogous to state space.</strong></p>
+</section>
+</section>
+<section id="rewards">
+<h2>Rewards<a class="headerlink" href="#rewards" title="Permalink to this headline">#</a></h2>
+<p>Rewards are engineered in such a way that these rewards result in the behaviour that we want the agent to have. One example of this is trying to make an agent to solve a maze. One potential issue with assigning reward to only the final state is that, the agent might just wander in all other states thinking that there is no actual reward present in the environment.</p>
+<p>A solution to this issue is to assign a negative reward for every time-step or random negative rewards so that the agent tries to learn the environment.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "EssentialAI/notes",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./rl"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="optimistic-initial-values.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Optimistic initial values</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="markov-property.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">The Markov Property</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Naresh Kumar<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
