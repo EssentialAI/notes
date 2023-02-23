@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Future Rewards &#8212; Notes @ The Essential AI</title>
+    <title>Future Rewards and Value functions &#8212; Notes @ The Essential AI</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -51,6 +51,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="canonical" href="https://essentialai.github.io/essentialai.github.io/rl/future-rewards.html" />
     <link rel="shortcut icon" href="../_static/brain1.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -225,7 +227,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     Future Rewards
+     Future Rewards and Value functions
     </a>
    </li>
   </ul>
@@ -387,23 +389,108 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Future Rewards and Value functions
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#planning">
+     Planning
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discounting-rewards">
+     Discounting rewards
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#value-functions">
+   Value Functions
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#what-if-the-return-is-random">
+     What if the return is random?
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Future Rewards</h1>
+                <h1>Future Rewards and Value functions</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Future Rewards and Value functions
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#planning">
+     Planning
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discounting-rewards">
+     Discounting rewards
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#value-functions">
+   Value Functions
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#what-if-the-return-is-random">
+     What if the return is random?
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -411,9 +498,77 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="future-rewards">
-<h1>Future Rewards<a class="headerlink" href="#future-rewards" title="Permalink to this headline">#</a></h1>
-<p>In this page, let’s get more specific about what the agent does.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="future-rewards-and-value-functions">
+<h1>Future Rewards and Value functions<a class="headerlink" href="#future-rewards-and-value-functions" title="Permalink to this headline">#</a></h1>
+<p>In this page, let’s get more specific about what the agent does. We have previously talked about how our agent wants to maximize the reward. However, this is not specific enough.</p>
+<p>Given an episode of time <span class="math notranslate nohighlight">\(T\)</span>, our true goal is to maximize the sum of total rewards over all the time-steps in the episode.</p>
+<p><strong>An important consideration in MDPs is that our actions only effect the future rewards, hence our aim become to maximize the sum of all future rewards from a given time-step.</strong> If we are in the initial stage of the episode we want to maximize the sum of all the rewards over that episode.</p>
+<p>We use the letter <span class="math notranslate nohighlight">\(G\)</span> to represent the sum of future rewards.</p>
+<div class="math notranslate nohighlight">
+\[
+G(t) = R(t+1)+ R(t+2)+... = \sum_{\tau = 0}^{\infty}R(t+\tau +1)
+\]</div>
+<p><strong>If the reward function <span class="math notranslate nohighlight">\(R(t)\)</span> is stochastic (random variable), then the reward function <span class="math notranslate nohighlight">\(G\)</span> is also stochastic (random variable).</strong></p>
+<p>At any given time the goal of the agent is to maximize the return <span class="math notranslate nohighlight">\(G(t)\)</span> that occur at all the future steps from <span class="math notranslate nohighlight">\(t\)</span>.</p>
+<section id="planning">
+<h2>Planning<a class="headerlink" href="#planning" title="Permalink to this headline">#</a></h2>
+<p>In RL, the reward that we are looking for happens at the very end of the game or sometime in the far future. Examples are solving a maze or winning a game. You want the agent to plan the strategies to reach the goal. This strategy finding element is automatic.</p>
+</section>
+<section id="discounting-rewards">
+<h2>Discounting rewards<a class="headerlink" href="#discounting-rewards" title="Permalink to this headline">#</a></h2>
+<p>One important addition to the reward functions is down-weighting rewards that are further into the future.</p>
+<div class="math notranslate nohighlight">
+\[G(t) = R(t+1)+ \gamma R(t+2)+ \gamma ^2 R(t+3) ... = \sum_{\tau = 0}^{\infty}\gamma^\tau R(t+\tau +1)\]</div>
+<p><em><span class="math notranslate nohighlight">\(\gamma\)</span> - discount factor</em></p>
+<p>Another intuitive way to think about discounting is that “the further you look into the future, the harder it becomes to predict the true reward.” Discounting allows us to say that “The near future is more important.”</p>
+<ul class="simple">
+<li><p>If <span class="math notranslate nohighlight">\(\gamma = 0\)</span>, the reward only depends on the next time-step. This can be called as a greedy strategy. We only care about the immediate reward.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(\gamma = 1\)</span>, the reward depends on all the future time-steps equally. This is the closest to what we would want a perfect agent to account for.</p></li>
+</ul>
+<p>The real purpose of using discounting is to improve the training process. If you have an environment that has very short <a class="reference external" href="mdp.html#episodic-v-s-non-episodic-tasks">episodic-tasks</a> , then it might not be worth using discounting at all.</p>
+<p>Usually the values of the discounting factor <span class="math notranslate nohighlight">\(\gamma\)</span> are around <span class="math notranslate nohighlight">\(\{0.9, 0.99, 0.999\}\)</span> and so on. <span class="math notranslate nohighlight">\(\gamma\)</span> is a hyperparameter and requires tuning. (use gridsearch).</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="value-functions">
+<h1>Value Functions<a class="headerlink" href="#value-functions" title="Permalink to this headline">#</a></h1>
+<p>Let’s reinitialize the fact that the goal of our agent is to maximize the sum of future rewards. How does the agent know what the sum of future rewards will be?</p>
+<p>Clearly this is dependent on the policy. Let’s take another look at the GridWorld.</p>
+<figure class="align-default" id="id1">
+<img alt="../_images/gridworld.PNG" src="../_images/gridworld.PNG" />
+<figcaption>
+<p><span class="caption-number">Fig. 69 </span><span class="caption-text">Gridworld Environment</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>If the agent take the two routes that lead to the goal position, no matter what step (action) the agent might take, the sum of the future rewards is always +1. (Assuming that the reward is defined as +1 if the agent reaches the goal position and -1 if the agent reaches the position below the goal position. (see figure above)).</p>
+<p>On the other, if the agent follows a policy that always leads to the state that gives -1 reward, the sum of the future rewards will always be -1.</p>
+<p><strong>Let’s now consider another setting of the same environment, where we receive -1 reward in every state other than the goal state, and the policy leads to the goal position only.</strong></p>
+<figure class="align-default" id="id2">
+<img alt="../_images/value-function1.PNG" src="../_images/value-function1.PNG" />
+<figcaption>
+<p><span class="caption-number">Fig. 70 </span><span class="caption-text">Rewards for each state are -1 except goal state.</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The difference between this example and the previous example is that, now the return to the agent is dependent on the state of the agent.</p>
+<figure class="align-default" id="id3">
+<img alt="../_images/value-function2.PNG" src="../_images/value-function2.PNG" />
+<figcaption>
+<p><span class="caption-number">Fig. 71 </span><span class="caption-text">Return is dependent on state.</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>The general the return from any particular state is dependent on what state you are in. This is also true with discounting as well.</strong></p>
+<p>The main takeaway here is that the return is not only dependent on what pocily the agent is following, but also on what state the agent is in.</p>
+<section id="what-if-the-return-is-random">
+<h2>What if the return is random?<a class="headerlink" href="#what-if-the-return-is-random" title="Permalink to this headline">#</a></h2>
+<p>The above example assumes returns to be deterministic. In case of stochastic environment, the transition function <span class="math notranslate nohighlight">\(p(s', r| s,a)\)</span> makes the return stochastic.</p>
+<p>In this sceario, <strong>does it even make sense to maximize <code class="docutils literal notranslate"><span class="pre">the</span></code> reward even when the reward is not known (random)?</strong></p>
+<p>This is the reason why the return is defined as a random variable. What we really want to maximize is the **expected return (or the expected value of the return) over time. **</p>
+<p>This is also called <strong>Value function.</strong> It is defined as the expected value of the return given a state <span class="math notranslate nohighlight">\(s\)</span> under the policy <span class="math notranslate nohighlight">\(\pi\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[V_{\pi}(s) = E_{\pi}[G(t)|S_t = s]\]</div>
+<p>where <span class="math notranslate nohighlight">\(G(t) = R(t+1)+ \gamma R(t+2)+ \gamma ^2 R(t+3) ... = \sum_{\tau = 0}^{\infty}\gamma^\tau R(t+\tau +1)\)</span></p>
+<p><em><span class="math notranslate nohighlight">\(\gamma\)</span> - discount factor</em></p>
+<p><code class="docutils literal notranslate"><span class="pre">One</span> <span class="pre">point</span> <span class="pre">to</span> <span class="pre">remember</span> <span class="pre">is</span> <span class="pre">that</span> <span class="pre">the</span> <span class="pre">value</span> <span class="pre">of</span> <span class="pre">a</span> <span class="pre">terminal</span> <span class="pre">state</span> <span class="pre">is</span> <span class="pre">0.</span> <span class="pre">Because</span> <span class="pre">in</span> <span class="pre">a</span> <span class="pre">terminal</span> <span class="pre">state</span> <span class="pre">there</span> <span class="pre">are</span> <span class="pre">no</span> <span class="pre">future</span> <span class="pre">rewards.</span></code></p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -428,7 +583,7 @@ title="Print to PDF"
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./rl"
         },
         predefinedOutput: true
