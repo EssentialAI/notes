@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>CVIP-project-1 &#8212; Notes @ The Essential AI</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -35,10 +36,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -210,6 +214,21 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toctree-l2">
     <a class="reference internal" href="../rl/optimistic-initial-values.html">
      Optimistic initial values
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../rl/mdp.html">
+     Markov Decision Processes Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../rl/markov-property.html">
+     The Markov Property
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../rl/future-rewards.html">
+     Future Rewards
     </a>
    </li>
   </ul>
@@ -395,7 +414,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="cvip-project-1">
+  <section class="tex2jax_ignore mathjax_ignore" id="cvip-project-1">
 <h1>CVIP-project-1<a class="headerlink" href="#cvip-project-1" title="Permalink to this headline">#</a></h1>
 <p>Find the intrinsic and extrinsic parameters of a camera using an image of a chessboard.</p>
 <p>We are given an image of a chessboard. The edge length of each grid on the chessboard is <span class="math notranslate nohighlight">\(10 \text{ mm}\)</span> in real world. Suppose the length of each pixel in the image is <span class="math notranslate nohighlight">\(1 \text{ mm}\)</span>. Find the projection matrix <a class="reference internal" href="pinhole.html#equation-projection-matrix">(4)</a> of the camera using the 32 corners of the chessboard.</p>
@@ -435,7 +454,7 @@ title="Print to PDF"
     <span class="n">findChessboardCorners</span><span class="p">,</span> <span class="n">cornerSubPix</span><span class="p">,</span> <span class="n">drawChessboardCorners</span>
     
 <span class="k">def</span> <span class="nf">find_corner_img_coord</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+    <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Args: </span>
 <span class="sd">        image: Input image of size MxNx3. M is the height of the image. N is the width of the image. 3 is the channel of the image.</span>
 <span class="sd">    Return:</span>
@@ -485,7 +504,7 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">find_corner_world_coord</span><span class="p">(</span><span class="n">img_coord</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+    <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    You can output the world coord manually or through some algorithms you design. Your output should be the same order with img_coord.</span>
 <span class="sd">    Args: </span>
 <span class="sd">        img_coord: The image coordinate of the corners. Note that you do not required to use this as input, </span>
@@ -521,7 +540,7 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">find_intrinsic</span><span class="p">(</span><span class="n">img_coord</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">world_coord</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+    <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Use the image coordinates and world coordinates of the 32 point to calculate the intrinsic parameters.</span>
 <span class="sd">    Args: </span>
 <span class="sd">        img_coord: The image coordinate of the 32 corners. This is a 32x2 numpy array.</span>
@@ -555,7 +574,7 @@ title="Print to PDF"
 
     <span class="c1"># As per preliminary, we need to take the last row of V.T</span>
 
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    According to preliminary, (r_i).T.dot(r_j)=I</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -616,7 +635,7 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">find_extrinsic</span><span class="p">(</span><span class="n">img_coord</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">world_coord</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+    <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Use the image coordinates, world coordinates of the 32 point and the intrinsic parameters to calculate the extrinsic parameters.</span>
 <span class="sd">    Args: </span>
 <span class="sd">        img_coord: The image coordinate of the 32 corners. This is a 32x2 numpy array.</span>
@@ -652,7 +671,7 @@ title="Print to PDF"
     <span class="n">u</span><span class="p">,</span><span class="n">s</span><span class="p">,</span><span class="n">vh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
     <span class="n">vh</span> <span class="o">=</span> <span class="n">vh</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">12</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>
 
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    According to preliminary, (r_i).T.dot(r_j)=I</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -712,7 +731,7 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">find_corner_img_coord1</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+    <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Args: </span>
 <span class="sd">        image: Input image of size MxNx3. M is the height of the image. N is the width of the image. 3 is the channel of the image.</span>
 <span class="sd">    Return:</span>
@@ -969,7 +988,7 @@ title="Print to PDF"
 <img alt="../_images/CVIP_Project1_17_0.png" src="../_images/CVIP_Project1_17_0.png" />
 </div>
 </div>
-</div>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -983,7 +1002,7 @@ title="Print to PDF"
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./cvip"
         },
         predefinedOutput: true

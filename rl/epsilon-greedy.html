@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Epsilon Greedy explained &#8212; Notes @ The Essential AI</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -35,10 +36,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -210,6 +214,21 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toctree-l2">
     <a class="reference internal" href="optimistic-initial-values.html">
      Optimistic initial values
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="mdp.html">
+     Markov Decision Processes Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="markov-property.html">
+     The Markov Property
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="future-rewards.html">
+     Future Rewards
     </a>
    </li>
   </ul>
@@ -470,11 +489,11 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="epsilon-greedy-explained">
+  <section class="tex2jax_ignore mathjax_ignore" id="epsilon-greedy-explained">
 <h1>Epsilon Greedy explained<a class="headerlink" href="#epsilon-greedy-explained" title="Permalink to this headline">#</a></h1>
 <p>An easy-to-implement, effective, and widely used approach to the exploration-exploitation problem is what is called <span class="math notranslate nohighlight">\(\epsilon\)</span>-greedy actions. This approach suggests, most of the time, greedily taking the action that is the best according to the rewards observed by that point in the experiment (that is, with 1-<span class="math notranslate nohighlight">\(\epsilon\)</span> probability); but once in a while (that is, with <span class="math notranslate nohighlight">\(\epsilon\)</span> probability), take a random action regardless of the action performances. Here, <span class="math notranslate nohighlight">\(\epsilon\)</span> is a number between 0 and 1, usually closer to zero (for example, 0.1) to “exploit” in most decisions. This way, the method allows continuous exploration of the alternative actions throughout the experiment.</p>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="application-to-the-online-advertising-scenario">
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="application-to-the-online-advertising-scenario">
 <h1>Application to the online advertising scenario<a class="headerlink" href="#application-to-the-online-advertising-scenario" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -564,8 +583,8 @@ No. of times exploited: 9684
 </div>
 <p>From the above graph it is very clear that, with higher epsilon value, the agent explores more. While all the agents with different epsilon values converge to the similar final average reward and decide on the same best performing ad, the difference in the time taken for convergence is significant.</p>
 <p>The number of optimal pulls (once converged) is significantly more for lower epsilon values. On the other hand, the noise (fluctuations) in case of epsilon=0.1 are significantly more.</p>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="advantages-and-disadvantages-of-epsilon-greedy-actions">
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="advantages-and-disadvantages-of-epsilon-greedy-actions">
 <h1>Advantages and disadvantages of <span class="math notranslate nohighlight">\(\epsilon\)</span>-greedy actions<a class="headerlink" href="#advantages-and-disadvantages-of-epsilon-greedy-actions" title="Permalink to this headline">#</a></h1>
 <ul class="simple">
 <li><p><strong>ε-greedy actions and A/B/n tests are similarly inefficient and static in allocating the exploration budget</strong>. The ε-greedy approach, too, fails to write off actions that are clearly bad and continues to allocate the same exploration budget to each alternative. For example, halfway through the experiment, it is pretty clear that ad A is performing pretty poorly. It would have been more efficient to use the exploration budget to try to differentiate between the rest of the alternatives to identify the best. On a related note, if a particular action is under-explored/over-explored at any point, the exploration budget is not adjusted accordingly.</p></li>
@@ -588,14 +607,14 @@ No. of times exploited: 9684
 <li><p><strong>Modifying the ε-greedy actions approach introduces new hyperparameters, which need to be tuned</strong>. Both of the previous suggestions – gradually diminishing ε and using exponential smoothing for Q – come with additional hyperparameters, and it may not be obvious what values to set these to. Moreover, incorrect selection of these hyperparameters may lead to worse results than what the standard version would yield.</p></li>
 </ul>
 <p>Keep in mind that ε-greedy actions are still too static, and we can do better. Consecutive sections discuss methods that improve upon ε-greedy.</p>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="references">
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="references">
 <h1>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h1>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.packtpub.com/product/mastering-reinforcement-learning-with-python/9781838644147">https://www.packtpub.com/product/mastering-reinforcement-learning-with-python/9781838644147</a></p></li>
 </ul>
 <p><em>This entire page is a chapter referenced from the above link. EssentialAI does not claim ownership of the content in any way.</em></p>
-</div>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -609,7 +628,7 @@ No. of times exploited: 9684
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./rl"
         },
         predefinedOutput: true

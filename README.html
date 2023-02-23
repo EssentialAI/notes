@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>notes &#8212; Notes @ The Essential AI</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -35,10 +36,13 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
     <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -208,6 +212,21 @@ const thebe_selector_output = ".output, .cell_output"
      Optimistic initial values
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="rl/mdp.html">
+     Markov Decision Processes Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="rl/markov-property.html">
+     The Markov Property
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="rl/future-rewards.html">
+     Future Rewards
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
@@ -344,9 +363,9 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="notes">
+  <section class="tex2jax_ignore mathjax_ignore" id="notes">
 <h1>notes<a class="headerlink" href="#notes" title="Permalink to this headline">#</a></h1>
-</div>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -360,7 +379,7 @@ title="Print to PDF"
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./."
         },
         predefinedOutput: true

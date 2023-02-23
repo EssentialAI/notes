@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>The Multi-Armed Bandit problem &#8212; Notes @ The Essential AI</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -35,10 +36,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -210,6 +214,21 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toctree-l2">
     <a class="reference internal" href="optimistic-initial-values.html">
      Optimistic initial values
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="mdp.html">
+     Markov Decision Processes Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="markov-property.html">
+     The Markov Property
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="future-rewards.html">
+     Future Rewards
     </a>
    </li>
   </ul>
@@ -473,22 +492,22 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="the-multi-armed-bandit-problem">
+  <section class="tex2jax_ignore mathjax_ignore" id="the-multi-armed-bandit-problem">
 <h1>The Multi-Armed Bandit problem<a class="headerlink" href="#the-multi-armed-bandit-problem" title="Permalink to this headline">#</a></h1>
-<div class="section" id="scenario-1-understanding-decision-making-under-uncertainty">
+<section id="scenario-1-understanding-decision-making-under-uncertainty">
 <h2>Scenario 1: (Understanding decision making under uncertainty).<a class="headerlink" href="#scenario-1-understanding-decision-making-under-uncertainty" title="Permalink to this headline">#</a></h2>
 <p>To properly understand the concept of decision making under uncertainty, let’s assume a simple scenario. Assume you walk into a coffee house you have never been to. Think about the process of choosing what flavour of coffee to order. As you have no prior information about how different flavors of coffee taste like (at this coffee house), there is no real advantage of choosing one flavor over another. This process of making decisions with little (or no) prior information about the outcomes of known actions is termed as “Decision making under uncertainty.” <a class="reference external" href="https://mitpress.mit.edu/9780262029254/">[1]</a></p>
 <p>This means choosing any flavour of coffee would be a new experience. In other words, called <strong>exploring</strong> coffee flavors. However, this might result in a bad choice (what if you ordered a flavour and didn’t like it at all?). At this point you decide turn to the ever so friendly waiter and try to gather some information about the coffee flavors (collecting <strong>data</strong> to make a decision). The waiter replies “Flavour A is the most-liked. You might like it the best”. In other words, Flavour A is a <strong>recommendation</strong> based on previous customer feedback (data) and not a decision. You proceed with the suggestion of waiter and decide to order flavour A. In other words, you decided to <strong>exploit</strong> the prior information and made a <strong>greedy</strong> decision. (These terms will start making sense soon as they are meant to set-up for terminology later.) Let’s say you really liked the Flavour A and return back to the coffee house after a couple of days. Think about the same process of choosing what to order. Do you go with your current best choice (Flavour A) or ‘explore’ more flavors? There might be a better flavour, you might not know!</p>
-</div>
-<div class="section" id="applications-of-decision-making-under-uncertainty">
+</section>
+<section id="applications-of-decision-making-under-uncertainty">
 <h2>Applications of Decision making under uncertainty.<a class="headerlink" href="#applications-of-decision-making-under-uncertainty" title="Permalink to this headline">#</a></h2>
 <p>The above concept of decision making under uncertainty can be encountered across multiple domains. For example, when a new user arrives at a website, he is shown certain ads. The recommendation agent (displaying the ads) is aimed at picking an ad that would maximize the click through rate. (CTR)</p>
 <div class="math notranslate nohighlight">
 \[\text{CTR} =\frac{\text{Number of clicks}}{\text{Total number of impressions}}\]</div>
 <p><strong>Dynamic Pricing</strong>: Fast-moving Consumer Goods (FMCG) is a domain with a large quantity of perishable goods. A seller must understand the change in demand for such products at regular intervals and adjust prices to maximize sales every day. This is an interesting problem from the seller point of view as there would be limited prior information to find the best possible promotion strategy to maximize the sales. This category falls under Trade Promotion Optimization. For example, would $9.99 lead to more sales than $10? What dates are the best to reduce (or) increase prices to maximize sales while minimizing promotional cost?</p>
 <p><strong>Portfolio Optimization</strong>: Portfolio optimization is based on Modern Portfolio Theory (MPT). The MPT is based on the principle that investors want the highest return for the lowest risk. To achieve this, assets in a portfolio should be selected after considering how they perform relative to each other, i.e.; they should have a low correlation. The agent must dynamically adjust the weights of each stock to yield maximum overall returns by choosing the best combination of stocks to be invested.</p>
-</div>
-<div class="section" id="formalizing-decision-making-under-uncertainty-into-the-multi-armed-bandit-problem">
+</section>
+<section id="formalizing-decision-making-under-uncertainty-into-the-multi-armed-bandit-problem">
 <h2>Formalizing decision making under uncertainty into the Multi-Armed Bandit problem.<a class="headerlink" href="#formalizing-decision-making-under-uncertainty-into-the-multi-armed-bandit-problem" title="Permalink to this headline">#</a></h2>
 <p>Multi-Armed Bandits (MAB) unify all the above-mentioned examples by providing a simple but very powerful framework of algorithms that make decision over time under uncertainty. <a class="reference external" href="https://arxiv.org/pdf/1904.07272.pdf">[2]</a> In the basic version, MAB setup has K possible actions to choose from, a.k.a. arms, and T rounds. In each round the algorithm chooses an arm and collects a reward for this arm. The reward is drawn independently from some distribution (generally uniform) which is fixed but not known to the algorithm. Essentially, the goal of the solution is to maximize the overall reward (by choosing from K possible actions) in the least amount of rounds or regret (defined as the number of times suboptimal bandit is pulled).</p>
 <p><strong>Definition</strong>: Simplified version of MAB (a.k.a. Stochastic Bandits)</p>
@@ -499,11 +518,11 @@ title="Print to PDF"
 <li><p>Reward <span class="math notranslate nohighlight">\(r_t \in [0, 1]\)</span> is sampled independently from the distribution <span class="math notranslate nohighlight">\(\mathcal{D}_a\)</span>, <span class="math notranslate nohighlight">\(a=a_t\)</span>.</p></li>
 <li><p>Algorithm collects reward <span class="math notranslate nohighlight">\(r_t\)</span>, and observes nothing else.</p></li>
 </ol>
-</div>
-<div class="section" id="diving-deep-into-the-mab-problem">
+</section>
+<section id="diving-deep-into-the-mab-problem">
 <h2>Diving deep into the MAB problem.<a class="headerlink" href="#diving-deep-into-the-mab-problem" title="Permalink to this headline">#</a></h2>
 <p>Having formulated a formal definition for the basic version of MAB, let’s understand the characteristics of an MAB problem and the reasons that make MAB a difficult problem to solve.</p>
-<div class="section" id="scenario-2-explaining-the-intuition-behind-decision-making-under-uncertainty">
+<section id="scenario-2-explaining-the-intuition-behind-decision-making-under-uncertainty">
 <h3>Scenario 2: Explaining the intuition behind decision making under uncertainty.<a class="headerlink" href="#scenario-2-explaining-the-intuition-behind-decision-making-under-uncertainty" title="Permalink to this headline">#</a></h3>
 <p>Imagine you walk into a casino and see two slot machines in front of you. For the sake of simplicity, let’s assume each slot machine yields either a reward of $0 or $1. How would one choose between these slot machines? At this point there no real advantage of choosing one slot machine over the other because of no prior information. This makes any choice equivalent.</p>
 <p><strong>Let’s assume, you chose slot 1 and lost</strong>. At this point we have some information about slot 1 but have no information about slot 2. Think about which slot machine would you pick in the second try and why? Our gut says to pick slot 2 right? This is partly because of probability.</p>
@@ -512,14 +531,14 @@ title="Print to PDF"
 <p>For slot 1 <span class="math notranslate nohighlight">\(\rightarrow\)</span> P(success)=0</p>
 <p>For slot 2 <span class="math notranslate nohighlight">\(\rightarrow\)</span> P(success)=undefined</p>
 <p>Our gut says that somehow ‘undefined’ is better than 0 and we want to explore the other slot machine, although you cannot compare them numerically. Let’s say you picked slot 2 and won. Which one do we play next? We would pick slot 2, as P(2) =1 and P(1) = 0. In terms of probability, these estimates are what we call <strong>Maximum likelihood estimates</strong> and the process of picking the slot machine with maximum likelihood is called <strong>Greedy approach</strong>.</p>
-</div>
-<div class="section" id="statistical-approach-towards-choosing-slot-machines">
+</section>
+<section id="statistical-approach-towards-choosing-slot-machines">
 <h3>Statistical approach towards choosing slot machines:<a class="headerlink" href="#statistical-approach-towards-choosing-slot-machines" title="Permalink to this headline">#</a></h3>
 <p>Let’s take a step back and think if there is something wrong in choosing slots using the greedy method. Consider we played slot machine 2 ten times and we got only 1 reward. At this point P(2) is slightly greater than 0 while P(1) is still 0. At this point there would be more disagreement about which slot machine to choose. What is the intuition behind choosing a slot machine even if the probability estimates suggest otherwise? Is there a way to algorithmically model this intuition?</p>
 <p>A statistician would suggest that the <strong>correct</strong> way to approach the slot machines is to decide how many data points to collect before walking into the casino. This would help decide the <a class="reference external" href="https://machinelearningmastery.com/statistical-power-and-power-analysis-in-python/#:~:text=statistical%20power%20is%20the%20probability%20that%20a%20test,reject%20a%20false%20null%20hypothesis.&amp;text=The%20higher%20the%20statistical%20power,when%20there%20is%20an%20effect">statistical power</a> and the <a class="reference external" href="https://en.wikipedia.org/wiki/Effect_size#:~:text=In%20statistics%2C%20an%20effect%20size,based%20estimate%20of%20that%20quantity.&amp;text=Effect%20sizes%20complement%20statistical%20hypothesis,%2C%20and%20in%20meta%2Danalyses">effect size</a> of the experiment. However, one major question here is that ‘How do you know the effect size without playing the machines?’</p>
 <p>Let’s say you decided to play each machine 10000 times. After 5000 pulls, slot machine 1 has won 3 times and slot machine 2 won 4000 times, but you cannot stop the experiment as it would invalidate the results from a statistical point of view. We must play each slot 10,000 times. This would result in the loss of several coins just to understand the reward approximation by slot machines. This is the major reason why statistical testing cannot be used to solve the MAB problem.</p>
-</div>
-<div class="section" id="adaptation-and-the-explore-exploit-dilemma">
+</section>
+<section id="adaptation-and-the-explore-exploit-dilemma">
 <h3>Adaptation and the Explore-Exploit dilemma.<a class="headerlink" href="#adaptation-and-the-explore-exploit-dilemma" title="Permalink to this headline">#</a></h3>
 <p>We need to formulate an algorithm that can adapt to the recent findings (just like our intuition). In the subsequent sections, a mathematical explanation and an algorithmic implementation of this intuition will be explained.</p>
 <p>While modelling this intuition, we have two opposing forces:</p>
@@ -529,16 +548,16 @@ title="Print to PDF"
 </ol>
 <p>These two forces of exploration and exploitation oppose each other. We want to achieve maximum reward while picking the slot machines, yet we cannot calculate their true probability estimates without exploring. Everytime we explore a sub-optimal slot machine, we sacrifice the best reward for better accuracy in probability estimates. Hence, exploration and exploitation are at odds with each other and cause a dilemma while making a decision. This is called the <strong>explore-exploit dilemma</strong>.</p>
 <p>The next article talks about the approaches to solve the explore-exploit dilemma.</p>
-</div>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="references">
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="references">
 <h1>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h1>
 <ol class="simple">
 <li><p><a class="reference external" href="https://mitpress.mit.edu/9780262029254/">https://mitpress.mit.edu/9780262029254/</a></p></li>
 <li><p><a class="reference external" href="https://arxiv.org/pdf/1904.07272.pdf">https://arxiv.org/pdf/1904.07272.pdf</a></p></li>
 </ol>
-</div>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -552,7 +571,7 @@ title="Print to PDF"
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./rl"
         },
         predefinedOutput: true

@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Using scale as a feature for correspondence &#8212; Notes @ The Essential AI</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -35,10 +36,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -210,6 +214,21 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toctree-l2">
     <a class="reference internal" href="../rl/optimistic-initial-values.html">
      Optimistic initial values
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../rl/mdp.html">
+     Markov Decision Processes Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../rl/markov-property.html">
+     The Markov Property
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../rl/future-rewards.html">
+     Future Rewards
     </a>
    </li>
   </ul>
@@ -401,7 +420,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="using-scale-as-a-feature-for-correspondence">
+  <section class="tex2jax_ignore mathjax_ignore" id="using-scale-as-a-feature-for-correspondence">
 <h1>Using scale as a feature for correspondence<a class="headerlink" href="#using-scale-as-a-feature-for-correspondence" title="Permalink to this headline">#</a></h1>
 <p>One important detail about the Harris corner detector is that, it does not provide the best patch size for corner detection. This means if we zoom in or zoom out of the image, harris corner detector fails.</p>
 <p><span class = 'high'>Harris corner detector is not scale invariant.</span></p>
@@ -425,7 +444,7 @@ Scale Invariant features for feature detection.
 <p>The idea is to find the local maximum of the <a class="reference external" href="image-features.html#the-harris-operator">Harris Operator</a> <span class="math notranslate nohighlight">\(f\)</span>.</p>
 <p>For a given location, we find <span class="math notranslate nohighlight">\(f\)</span> for <span class="math notranslate nohighlight">\(n\)</span> different patch sizes. Finally we pick the patch size that gives the maximum value of <span class="math notranslate nohighlight">\(f\)</span>. This incorporates for the scale change issue in the Harris corner detector.</p>
 </div>
-<div class="section" id="a-better-alternative-to-harris-operator-f">
+<section id="a-better-alternative-to-harris-operator-f">
 <h2>A better alternative to Harris Operator <span class="math notranslate nohighlight">\(f\)</span><a class="headerlink" href="#a-better-alternative-to-harris-operator-f" title="Permalink to this headline">#</a></h2>
 <p><strong>Laplacian Operator</strong></p>
 <p>The Laplacian of a function <span class="math notranslate nohighlight">\(f = f(x,y)\)</span> is defined as the divergence of its gradient which is equal to the sum of the function’s second spatial derivatives in cartesian coordinates.</p>
@@ -436,57 +455,77 @@ Scale Invariant features for feature detection.
 <div class="math notranslate nohighlight" id="equation-laplacian-corner">
 <span class="eqno">(23)<a class="headerlink" href="#equation-laplacian-corner" title="Permalink to this equation">#</a></span>\[\nabla ^2 f(x,y) = I_{xx}+I_{yy}\]</div>
 <p>There is another alternative to Laplacian detector.</p>
-<div class="figure align-default" id="id1">
+<figure class="align-default" id="id1">
 <img alt="../_images/dog.PNG" src="../_images/dog.PNG" />
-<p class="caption"><span class="caption-number">Fig. 39 </span><span class="caption-text">Laplacian v/s Difference of Gaussians</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 39 </span><span class="caption-text">Laplacian v/s Difference of Gaussians</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>Automatic patch size selection in corner detection after zoom in or zoom out.</p>
-<div class="figure align-default" id="id2">
+<figure class="align-default" id="id2">
 <img alt="../_images/auto-scale.PNG" src="../_images/auto-scale.PNG" />
-<p class="caption"><span class="caption-number">Fig. 40 </span><span class="caption-text">Automatic patch size selection in corner detection</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
-</div>
-<div class="figure align-default" id="id3">
+<figcaption>
+<p><span class="caption-number">Fig. 40 </span><span class="caption-text">Automatic patch size selection in corner detection</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id3">
 <img alt="../_images/eigen-affine.PNG" src="../_images/eigen-affine.PNG" />
-<p class="caption"><span class="caption-number">Fig. 41 </span><span class="caption-text">Matching under affine transformation</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 41 </span><span class="caption-text">Matching under affine transformation</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p><span class = 'high'>Note that we still have not solved the correspondence problem. We have the scale invariant features, how to find what features in the left image match with the features in the right image?</span></p>
-<div class="figure align-default" id="id4">
+<figure class="align-default" id="id4">
 <img alt="../_images/towards-scale-invariance.PNG" src="../_images/towards-scale-invariance.PNG" />
-<p class="caption"><span class="caption-number">Fig. 42 </span><span class="caption-text">Normalization</span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
-</div>
-<div class="figure align-default" id="id5">
+<figcaption>
+<p><span class="caption-number">Fig. 42 </span><span class="caption-text">Normalization</span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id5">
 <img alt="../_images/affine-normalization-challenge.PNG" src="../_images/affine-normalization-challenge.PNG" />
-<p class="caption"><span class="caption-number">Fig. 43 </span><span class="caption-text">Affine Normalization challenge</span><a class="headerlink" href="#id5" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 43 </span><span class="caption-text">Affine Normalization challenge</span><a class="headerlink" href="#id5" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>At every pixel in the image patch we calculate the vector <span class="math notranslate nohighlight">\((I_x,I_y)\)</span>.</p>
-<div class="figure align-default" id="id6">
+<figure class="align-default" id="id6">
 <img alt="../_images/gradient-orientation.PNG" src="../_images/gradient-orientation.PNG" />
-<p class="caption"><span class="caption-number">Fig. 44 </span><span class="caption-text">Gradient Orientation</span><a class="headerlink" href="#id6" title="Permalink to this image">#</a></p>
-</div>
-<div class="figure align-default" id="id7">
+<figcaption>
+<p><span class="caption-number">Fig. 44 </span><span class="caption-text">Gradient Orientation</span><a class="headerlink" href="#id6" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id7">
 <img alt="../_images/rotational-ambiguity.PNG" src="../_images/rotational-ambiguity.PNG" />
-<p class="caption"><span class="caption-number">Fig. 45 </span><span class="caption-text">Eliminating Rotational Ambiguity</span><a class="headerlink" href="#id7" title="Permalink to this image">#</a></p>
-</div>
-<div class="figure align-default" id="id8">
+<figcaption>
+<p><span class="caption-number">Fig. 45 </span><span class="caption-text">Eliminating Rotational Ambiguity</span><a class="headerlink" href="#id7" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id8">
 <img alt="../_images/rotational-ambiguity1.PNG" src="../_images/rotational-ambiguity1.PNG" />
-<p class="caption"><span class="caption-number">Fig. 46 </span><span class="caption-text">Eliminating Rotational Ambiguity</span><a class="headerlink" href="#id8" title="Permalink to this image">#</a></p>
-</div>
-</div>
-<div class="section" id="sift-vector">
+<figcaption>
+<p><span class="caption-number">Fig. 46 </span><span class="caption-text">Eliminating Rotational Ambiguity</span><a class="headerlink" href="#id8" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="sift-vector">
 <h2>SIFT Vector<a class="headerlink" href="#sift-vector" title="Permalink to this headline">#</a></h2>
 <p>A more simplified version of gradient of intensity representation of ellipse is to consider a circle and calculate gradient for each pixel and maintain a histogram of gradients at every pixel.</p>
 <p>The histogram represents the distribution of gradients in the image patch. Even when the image patch is rotated, the histogram undergoes circular shift.</p>
-<div class="figure align-default" id="id9">
+<figure class="align-default" id="id9">
 <img alt="../_images/sift-features.PNG" src="../_images/sift-features.PNG" />
-<p class="caption"><span class="caption-number">Fig. 47 </span><span class="caption-text">SIFT Features</span><a class="headerlink" href="#id9" title="Permalink to this image">#</a></p>
-</div>
-<div class="figure align-default" id="id10">
+<figcaption>
+<p><span class="caption-number">Fig. 47 </span><span class="caption-text">SIFT Features</span><a class="headerlink" href="#id9" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id10">
 <img alt="../_images/sift-hand-drawn.PNG" src="../_images/sift-hand-drawn.PNG" />
-<p class="caption"><span class="caption-number">Fig. 48 </span><span class="caption-text">SIFT Features</span><a class="headerlink" href="#id10" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 48 </span><span class="caption-text">SIFT Features</span><a class="headerlink" href="#id10" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p><span class = 'high'>An important detail to note is that SIFT features consider the gradient of intensity values and not the pixel values.</span></p>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -500,7 +539,7 @@ Scale Invariant features for feature detection.
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./cvip"
         },
         predefinedOutput: true

@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Coding a simple (random) Multi-Armed Bandit Agent &#8212; Notes @ The Essential AI</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -35,10 +36,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -208,6 +212,21 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toctree-l2">
     <a class="reference internal" href="optimistic-initial-values.html">
      Optimistic initial values
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="mdp.html">
+     Markov Decision Processes Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="markov-property.html">
+     The Markov Property
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="future-rewards.html">
+     Future Rewards
     </a>
    </li>
   </ul>
@@ -393,7 +412,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="coding-a-simple-random-multi-armed-bandit-agent">
+  <section class="tex2jax_ignore mathjax_ignore" id="coding-a-simple-random-multi-armed-bandit-agent">
 <h1>Coding a simple (random) Multi-Armed Bandit Agent<a class="headerlink" href="#coding-a-simple-random-multi-armed-bandit-agent" title="Permalink to this headline">#</a></h1>
 <p>In this section, we shall code a simple MAB agent. The idea here is to create the example of slot machines explained in the previous <a class="reference internal" href="mab.html"><span class="doc std std-doc">page</span></a> to understand the working of a simple MAB agent.</p>
 <p>We shall have some slot machines each with a distribution of reward. User shall pick a slot machine independently at a time to receive a reward. Each selection is independent to its previous selection as the current setting does not make any decision using previous data.</p>
@@ -626,7 +645,7 @@ Number of optimal pulls =  3284
 <p>In the above example code, the agent receives a reward of 1 or 0 based on the probability of reward of individual bandits. It is clearly seen that even with an agent with completely random actions, the estimated probabilities for reward and the true probabilities for reward converge at around 1500 time steps.</p>
 <p><strong>Consider pondering if 1500 time steps are sufficient or considerable to stop exploring. Is there a better way where we do not lose upon the reward by choosing suboptimal bandits? We shall explore those solutions in the next page.</strong></p>
 <p>To understand the code better try making changes to the reward function, the update function and try creating some plots too. Trust me you cant break the existing code.</p>
-</div>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -640,7 +659,7 @@ Number of optimal pulls =  3284
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./rl"
         },
         predefinedOutput: true

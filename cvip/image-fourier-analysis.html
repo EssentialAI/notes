@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Image Fourier Analysis &#8212; Notes @ The Essential AI</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -35,10 +36,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -210,6 +214,21 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toctree-l2">
     <a class="reference internal" href="../rl/optimistic-initial-values.html">
      Optimistic initial values
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../rl/mdp.html">
+     Markov Decision Processes Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../rl/markov-property.html">
+     The Markov Property
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../rl/future-rewards.html">
+     Future Rewards
     </a>
    </li>
   </ul>
@@ -477,7 +496,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="image-fourier-analysis">
+  <section class="tex2jax_ignore mathjax_ignore" id="image-fourier-analysis">
 <h1>Image Fourier Analysis<a class="headerlink" href="#image-fourier-analysis" title="Permalink to this headline">#</a></h1>
 <p>We use sine waves to perform image fourier analysis because any signal can be decomposed as a linear summation of sine waves with different amplitudes and time periods.</p>
 <table class="colwidths-auto table">
@@ -492,21 +511,27 @@ title="Print to PDF"
 </tr>
 </tbody>
 </table>
-<div class="figure align-default" id="id1">
+<figure class="align-default" id="id1">
 <img alt="../_images/fourier-analysis.PNG" src="../_images/fourier-analysis.PNG" />
-<p class="caption"><span class="caption-number">Fig. 53 </span><span class="caption-text">Fourier analysis for filters</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 53 </span><span class="caption-text">Fourier analysis for filters</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>Before performing the fourier analysis, images are subsampled. This is done to overcome the calculation head.</p>
-<div class="figure align-default" id="id2">
+<figure class="align-default" id="id2">
 <img alt="../_images/filter-pipeline.PNG" src="../_images/filter-pipeline.PNG" />
-<p class="caption"><span class="caption-number">Fig. 54 </span><span class="caption-text">Pipeline</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
-</div>
-<div class="section" id="convolution-represented-in-terms-of-fourier-transforms">
+<figcaption>
+<p><span class="caption-number">Fig. 54 </span><span class="caption-text">Pipeline</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="convolution-represented-in-terms-of-fourier-transforms">
 <h2>Convolution represented in terms of Fourier Transforms<a class="headerlink" href="#convolution-represented-in-terms-of-fourier-transforms" title="Permalink to this headline">#</a></h2>
-<div class="figure align-default" id="id3">
+<figure class="align-default" id="id3">
 <img alt="../_images/fourier-conv.PNG" src="../_images/fourier-conv.PNG" />
-<p class="caption"><span class="caption-number">Fig. 55 </span><span class="caption-text">Convolution in terms of fourier</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 55 </span><span class="caption-text">Convolution in terms of fourier</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="text-align:center head"><p>_</p></th>
@@ -523,28 +548,36 @@ title="Print to PDF"
 <p class="admonition-title">Note</p>
 <p>FFT is one of the most beautiful algorithms of all time. Learn the essence of FFT <a class="reference external" href="https://www.youtube.com/watch?v=nmgFG7PUHfo">here</a> and <a class="reference external" href="https://www.youtube.com/watch?v=h7apO7q16V0">here</a></p>
 </div>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="image-smoothing-gaussian-kernel">
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="image-smoothing-gaussian-kernel">
 <h1>Image Smoothing - Gaussian Kernel<a class="headerlink" href="#image-smoothing-gaussian-kernel" title="Permalink to this headline">#</a></h1>
-<div class="figure align-default" id="id4">
+<figure class="align-default" id="id4">
 <img alt="../_images/guassian-kernel.PNG" src="../_images/guassian-kernel.PNG" />
-<p class="caption"><span class="caption-number">Fig. 56 </span><span class="caption-text">Gaussian Kernel</span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
-</div>
-<div class="figure align-default" id="id5">
+<figcaption>
+<p><span class="caption-number">Fig. 56 </span><span class="caption-text">Gaussian Kernel</span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id5">
 <img alt="../_images/smoothing.PNG" src="../_images/smoothing.PNG" />
-<p class="caption"><span class="caption-number">Fig. 57 </span><span class="caption-text">Image smoothing</span><a class="headerlink" href="#id5" title="Permalink to this image">#</a></p>
-</div>
-<div class="figure align-default" id="id6">
+<figcaption>
+<p><span class="caption-number">Fig. 57 </span><span class="caption-text">Image smoothing</span><a class="headerlink" href="#id5" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id6">
 <img alt="../_images/low-pass-filter.PNG" src="../_images/low-pass-filter.PNG" />
-<p class="caption"><span class="caption-number">Fig. 58 </span><span class="caption-text">Low-pass Filter</span><a class="headerlink" href="#id6" title="Permalink to this image">#</a></p>
-</div>
-<div class="section" id="box-v-s-gaussian-filter">
+<figcaption>
+<p><span class="caption-number">Fig. 58 </span><span class="caption-text">Low-pass Filter</span><a class="headerlink" href="#id6" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="box-v-s-gaussian-filter">
 <h2>Box v/s Gaussian filter<a class="headerlink" href="#box-v-s-gaussian-filter" title="Permalink to this headline">#</a></h2>
-<div class="figure align-default" id="id7">
+<figure class="align-default" id="id7">
 <img alt="../_images/box-vs-gaussian.PNG" src="../_images/box-vs-gaussian.PNG" />
-<p class="caption"><span class="caption-number">Fig. 59 </span><span class="caption-text">Box vs Gaussian filters</span><a class="headerlink" href="#id7" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 59 </span><span class="caption-text">Box vs Gaussian filters</span><a class="headerlink" href="#id7" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="text-align:center head"><p>Box filter</p></th>
@@ -557,9 +590,9 @@ title="Print to PDF"
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="template-matching">
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="template-matching">
 <h1>Template Matching<a class="headerlink" href="#template-matching" title="Permalink to this headline">#</a></h1>
 <p>We have the candidates for correspondence from the left image and the right image. How do we match the corresponding regions of the both images.</p>
 <p>Template matching is one way to perform this correspondence check.</p>
@@ -582,10 +615,12 @@ title="Print to PDF"
 </tr>
 </tbody>
 </table>
-<div class="figure align-default" id="id8">
+<figure class="align-default" id="id8">
 <img alt="../_images/ncc-1.PNG" src="../_images/ncc-1.PNG" />
-<p class="caption"><span class="caption-number">Fig. 60 </span><span class="caption-text">Normalized Cross Correlation</span><a class="headerlink" href="#id8" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 60 </span><span class="caption-text">Normalized Cross Correlation</span><a class="headerlink" href="#id8" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="text-align:center head"><p>SSD with dark patch</p></th>
@@ -598,7 +633,7 @@ title="Print to PDF"
 </tr>
 </tbody>
 </table>
-<div class="section" id="ssd-v-s-ncc">
+<section id="ssd-v-s-ncc">
 <h2>SSD v/s NCC<a class="headerlink" href="#ssd-v-s-ncc" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>SSD is faster, but sensitive to overall intensity</p></li>
@@ -608,8 +643,8 @@ title="Print to PDF"
 <p class="admonition-title">Note</p>
 <p>NCC captures the cosine of angle between the vectors. NCC is similar to cosine similarity with normalization.</p>
 </div>
-</div>
-<div class="section" id="image-pyramids">
+</section>
+<section id="image-pyramids">
 <h2>Image pyramids<a class="headerlink" href="#image-pyramids" title="Permalink to this headline">#</a></h2>
 <p>Image pyramid is formed by applying gaussian filter on an image and then sampling every other pixel in the image.</p>
 <table class="colwidths-auto table">
@@ -625,8 +660,8 @@ title="Print to PDF"
 </tbody>
 </table>
 <p>The extra image samples added to the image contribute to 1/3 of the original image.</p>
-</div>
-<div class="section" id="the-essence-of-gaussian-smoothing">
+</section>
+<section id="the-essence-of-gaussian-smoothing">
 <h2>The essence of gaussian smoothing<a class="headerlink" href="#the-essence-of-gaussian-smoothing" title="Permalink to this headline">#</a></h2>
 <table class="colwidths-auto table">
 <thead>
@@ -647,17 +682,21 @@ title="Print to PDF"
 <p>More information about Gaussian kernels can be found <a class="reference external" href="https://dsp.stackexchange.com/questions/3002/why-are-gaussian-filters-used-as-low-pass-filters-in-image-processing">here</a></p>
 </div>
 <p><strong>Gaussian Pyramids and Laplacian Pyramids</strong></p>
-<div class="figure align-default" id="id9">
+<figure class="align-default" id="id9">
 <img alt="../_images/laplacian-pyramid.PNG" src="../_images/laplacian-pyramid.PNG" />
-<p class="caption"><span class="caption-number">Fig. 61 </span><span class="caption-text">Laplacian Pyramid</span><a class="headerlink" href="#id9" title="Permalink to this image">#</a></p>
-</div>
-</div>
-<div class="section" id="finding-edges-using-intensity-values">
+<figcaption>
+<p><span class="caption-number">Fig. 61 </span><span class="caption-text">Laplacian Pyramid</span><a class="headerlink" href="#id9" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="finding-edges-using-intensity-values">
 <h2>Finding edges using intensity values<a class="headerlink" href="#finding-edges-using-intensity-values" title="Permalink to this headline">#</a></h2>
-<div class="figure align-default" id="id10">
+<figure class="align-default" id="id10">
 <img alt="../_images/edges-fourier.PNG" src="../_images/edges-fourier.PNG" />
-<p class="caption"><span class="caption-number">Fig. 62 </span><span class="caption-text">Edge detection in the 1D frequency domain.</span><a class="headerlink" href="#id10" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 62 </span><span class="caption-text">Edge detection in the 1D frequency domain.</span><a class="headerlink" href="#id10" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>The above figure is for the 1D case. An image is 2D, how to represent the edges in terms of gradients?</p>
 <table class="colwidths-auto table">
 <thead>
@@ -684,8 +723,8 @@ title="Print to PDF"
 </tr>
 </tbody>
 </table>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -699,7 +738,7 @@ title="Print to PDF"
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./cvip"
         },
         predefinedOutput: true

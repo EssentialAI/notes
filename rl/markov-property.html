@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Optimistic initial values &#8212; Notes @ The Essential AI</title>
+    <title>The Markov Property &#8212; Notes @ The Essential AI</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -53,12 +53,12 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link rel="canonical" href="https://essentialai.github.io/essentialai.github.io/rl/optimistic-initial-values.html" />
+    <link rel="canonical" href="https://essentialai.github.io/essentialai.github.io/rl/markov-property.html" />
     <link rel="shortcut icon" href="../_static/brain1.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Markov Decision Processes Introduction" href="mdp.html" />
-    <link rel="prev" title="Epsilon Greedy explained" href="epsilon-greedy.html" />
+    <link rel="next" title="Future Rewards" href="future-rewards.html" />
+    <link rel="prev" title="Markov Decision Processes Introduction" href="mdp.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -211,8 +211,8 @@ const thebe_selector_output = ".output, .cell_output"
      Epsilon Greedy explained
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="optimistic-initial-values.html">
      Optimistic initial values
     </a>
    </li>
@@ -221,8 +221,8 @@ const thebe_selector_output = ".output, .cell_output"
      Markov Decision Processes Introduction
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="markov-property.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      The Markov Property
     </a>
    </li>
@@ -292,7 +292,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/EssentialAI/notes/main?urlpath=tree/rl/optimistic-initial-values.ipynb"
+        <a href="https://mybinder.org/v2/gh/EssentialAI/notes/main?urlpath=tree/rl/markov-property.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -353,7 +353,7 @@ title="Fullscreen mode"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../_sources/rl/optimistic-initial-values.ipynb"
+        <a href="../_sources/rl/markov-property.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -390,23 +390,108 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   The Markov Property
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-state-transition-matrix">
+     The State Transition Matrix
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#diving-deep-into-markov-decision-processes">
+   Diving deep into Markov Decision Processes
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#importance-of-noticing-the-time-indicing-during-the-action-reward-loop">
+     Importance of noticing the time indicing during the action-reward loop
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#deterministic-and-stochastic-rewards">
+     Deterministic and Stochastic Rewards
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Optimistic initial values</h1>
+                <h1>The Markov Property</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   The Markov Property
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-state-transition-matrix">
+     The State Transition Matrix
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#diving-deep-into-markov-decision-processes">
+   Diving deep into Markov Decision Processes
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#importance-of-noticing-the-time-indicing-during-the-action-reward-loop">
+     Importance of noticing the time indicing during the action-reward loop
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#deterministic-and-stochastic-rewards">
+     Deterministic and Stochastic Rewards
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -414,83 +499,73 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="optimistic-initial-values">
-<h1>Optimistic initial values<a class="headerlink" href="#optimistic-initial-values" title="Permalink to this headline">#</a></h1>
-<p>Optimistic intial values method is a simple modification to the purely greedy algorithm. To use optimistic initial values, we do not require any epsilon value or random exploration.</p>
-<p>Recall from the <a class="reference external" href="ab-testing.html#notation">previous bandit examples</a> that, we update our current estimate of the reward (Q value) based on the previous estimate. The initial values of these reward estimates are set to be 0 (see code from <a class="reference internal" href="ab-testing.html"><span class="doc std std-doc">ab-testing</span></a>). The optimistic values method on the other hand initializes these initial estimates to be a very large value. In this way, we overestimate the mean estimate.</p>
-<p>Once the estimates are initialized, we do not perform any exploration of any kind, we just choose the bandit with the highest estimate of reward (Q) at the time step.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Optimistic initial values in code</span>
-
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-
-<span class="k">class</span> <span class="nc">BernoulliBandit</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">p</span>
-    
-    <span class="k">def</span> <span class="nf">display_ad</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">reward</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">reward</span>
-    
-<span class="n">bandit_probs</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.016</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.028</span><span class="p">,</span> <span class="mf">0.031</span><span class="p">]</span> <span class="c1">#These probabilities represent the reward distribution per each bandit (ad here).</span>
-
-<span class="n">ads</span> <span class="o">=</span> <span class="p">[</span><span class="n">BernoulliBandit</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bandit_probs</span><span class="p">]</span>
-
-<span class="n">n_trails</span> <span class="o">=</span> <span class="mi">10000</span>
-<span class="n">n_ads</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ads</span><span class="p">)</span>
-
-<span class="n">n_optimal_pulls</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">10.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">])</span>  <span class="c1"># Intializing bandit probs to a very high value</span>
-<span class="n">N</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n_ads</span><span class="p">)</span>  <span class="c1"># N, total impressions</span>
-<span class="n">total_reward</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">avg_rewards</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Save average rewards over time</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_trails</span><span class="p">):</span>
-    <span class="n">ad_chosen</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">ad_chosen</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">bandit_probs</span><span class="p">):</span>
-            <span class="n">n_optimal_pulls</span> <span class="o">+=</span><span class="mi">1</span>
-
-    <span class="n">R</span> <span class="o">=</span> <span class="n">ads</span><span class="p">[</span><span class="n">ad_chosen</span><span class="p">]</span><span class="o">.</span><span class="n">display_ad</span><span class="p">()</span>  <span class="c1"># Observe reward</span>
-    <span class="n">N</span><span class="p">[</span><span class="n">ad_chosen</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="n">Q</span><span class="p">[</span><span class="n">ad_chosen</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">N</span><span class="p">[</span><span class="n">ad_chosen</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">R</span> <span class="o">-</span> <span class="n">Q</span><span class="p">[</span><span class="n">ad_chosen</span><span class="p">])</span>
-    <span class="n">total_reward</span> <span class="o">+=</span> <span class="n">R</span>
-    <span class="n">avg_reward_so_far</span> <span class="o">=</span> <span class="n">total_reward</span> <span class="o">/</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">avg_rewards</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">avg_reward_so_far</span><span class="p">)</span>
-
-<span class="n">best_ad_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span>  <span class="c1"># Find the best action</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No. of times optimal bandit was pulled&quot;</span><span class="p">,</span> <span class="n">n_optimal_pulls</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Q values&quot;</span><span class="p">,</span> <span class="n">Q</span><span class="p">)</span>
-
-
-<span class="n">df_reward_comparison</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">avg_rewards</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;A/B/n&#39;</span><span class="p">])</span>
-<span class="n">df_reward_comparison</span><span class="p">[</span><span class="s1">&#39;A/B/n&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;A/B/n Test Avg. Reward: </span><span class="si">{:.4f}</span><span class="s2">&quot;</span>
-                                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">avg_reward_so_far</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Impressions&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Avg. Reward&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>No. of times optimal bandit was pulled 9925
-Q values [0.40167238 0.38461538 0.38461538 0.38461538]
-</pre></div>
-</div>
-<img alt="../_images/optimistic-initial-values_1_1.png" src="../_images/optimistic-initial-values_1_1.png" />
-</div>
-</div>
-<p>One important thing to notice from the above results is that, <strong>not all the estimates converge to their actual values</strong>. This happens when the estimated value of a bandit is lower than the actual true estimate of another bandit. This is due to the fact that we perform greedy action at every step and the bandits with lower probability estimates are not chosen at all.</p>
-<p>Optimistic initial values inherently allows exploration to happen by initializing return estimates of each bandit to a large value.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="the-markov-property">
+<h1>The Markov Property<a class="headerlink" href="#the-markov-property" title="Permalink to this headline">#</a></h1>
+<p>“All models are wrong, but some are useful.” - Box, George E.P.; Norman R. Draper (1987)</p>
+<p>The Markov property seems unrealistic, and despite that it underpins multiple sub-fields of Machine Learning.</p>
+<p>Let’s understand the markov property from the context of Language models. <strong>Consider: Sentences are sequence of words, and words are states.</strong> Example Sentence: “A quick brown fox jumps over a lazy dog.”</p>
+<p>Suppose you are given the entire sentence except for the last word and you are asked to predict the last word. This can be formulated as a probability distribution. What is the word at time 9 given all the words until time 8.</p>
 <div class="math notranslate nohighlight">
-\[
-\text{Value of optimistic value} \propto \text{exploration}\]</div>
-<p><strong>As a matter of fact, the estimated value for the optimal bandit might not even converge as there is a chance that the initial value can be very high while the number of steps can be very low to allow the model to converge. This is a disadvantage of Optimistic initial values method.</strong></p>
+\[P(w_9 | w_{1..8} = \text{&quot;the quick brown fox jumps over a lazy&quot;})\]</div>
+<p>One might think that training such a language model might require us to consider all possible sentences in the english language. This is almost impossible.</p>
+<p>Markov property states asks us to only consider the previous word to predict the next word. More formally,</p>
+<p>The first-order Markov Property states that:</p>
+<div class="math notranslate nohighlight">
+\[p(s_t | s_{t-1}, s_{t-2},...,s_1) = p(s_t | s_{t-1})\]</div>
+<p>This means the state at time <span class="math notranslate nohighlight">\(t\)</span> only depends on the state <span class="math notranslate nohighlight">\(t-1\)</span>. Second-order markov property is where the state at <span class="math notranslate nohighlight">\(t\)</span> depends on both states at <span class="math notranslate nohighlight">\(t-1\)</span> and <span class="math notranslate nohighlight">\(t-2\)</span>. This property is somewhat restrictive. What if the word at time <span class="math notranslate nohighlight">\(t\)</span> is <code class="docutils literal notranslate"><span class="pre">the</span></code>. This makes it almost impossible to predict the next word accurately. In reality, the markov property works surprisingly well. Why does Markov Property even work? <a class="reference external" href="https://stats.stackexchange.com/questions/329011/markov-property-in-practical-rl">see more</a> In environments such as Atari games, a state is usually considered as a group of 4 (or n) frames. This means that an observation is not equal to the state and hence we have both observation space and state space.</p>
+<section id="the-state-transition-matrix">
+<h2>The State Transition Matrix<a class="headerlink" href="#the-state-transition-matrix" title="Permalink to this headline">#</a></h2>
+<p>One of the key ingredient of the Markov Property is the State Transition matrix. In order to express the probability of going from one state to another, we need two inputs, the current state and the next state.</p>
+<div class="math notranslate nohighlight">
+\[T_{ij} = p(s_t = j | s_{t-1}=i) \approx \frac{\text{count}(i\rightarrow j)}{\text{count}(i)}\]</div>
+<p>Using maximum likelihood we can count the event of <span class="math notranslate nohighlight">\(i \rightarrow j\)</span> from state <span class="math notranslate nohighlight">\(i\)</span>.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="diving-deep-into-markov-decision-processes">
+<h1>Diving deep into Markov Decision Processes<a class="headerlink" href="#diving-deep-into-markov-decision-processes" title="Permalink to this headline">#</a></h1>
+<p>We now have all the ingredients to dive into MDPs. In a single sentence, we can define MDP as a <code class="docutils literal notranslate"><span class="pre">discrete-time</span> <span class="pre">stochatic</span> <span class="pre">control</span> <span class="pre">process</span></code>.</p>
+<figure class="align-default" id="id1">
+<img alt="../_images/mdp-flow.PNG" src="../_images/mdp-flow.PNG" />
+<figcaption>
+<p><span class="caption-number">Fig. 66 </span><span class="caption-text">Markov Decision Process ingredients.</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Environments are defined (not really built). We try to build the learning agent that navigates (interacts) with the defined environment and solve the same.</p>
+<p>From the above figure it can be inferred that the agent takes an action in the environment (that may or may not change the environment). The environment then returns a feedback to the agent. This is in the form of <code class="docutils literal notranslate"><span class="pre">reward</span> <span class="pre">and</span> <span class="pre">the</span> <span class="pre">next</span> <span class="pre">state</span></code>.</p>
+<section id="importance-of-noticing-the-time-indicing-during-the-action-reward-loop">
+<h2>Importance of noticing the time indicing during the action-reward loop<a class="headerlink" href="#importance-of-noticing-the-time-indicing-during-the-action-reward-loop" title="Permalink to this headline">#</a></h2>
+<figure class="align-default" id="id2">
+<img alt="../_images/mdp-flow1.PNG" src="../_images/mdp-flow1.PNG" />
+<figcaption>
+<p><span class="caption-number">Fig. 67 </span><span class="caption-text">Markov Decision Process ingredients.</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Suppose the agent sees the environment at the current time <span class="math notranslate nohighlight">\(t\)</span>. The action chooses an action <span class="math notranslate nohighlight">\(A_t\)</span> from the policy <span class="math notranslate nohighlight">\(\pi (a_t | s_t)\)</span> (notice both action and state have the same time index <span class="math notranslate nohighlight">\(t\)</span>). The Action <span class="math notranslate nohighlight">\(A_t\)</span> is input to the environment and this brings us to the next time-step. The increment in time-step is implicit in the environment. The agent now arrives in the next state <span class="math notranslate nohighlight">\(s_{t+1}\)</span> and receives the reward of <span class="math notranslate nohighlight">\(R_{t+1}\)</span>. <strong>All together this forms the tuple for a single step in an MDP. Transition step = {<span class="math notranslate nohighlight">\(S_t, A_t, R_{t+1}, S_{t+1}\)</span>}</strong></p>
+<p>Another ways to represent the above tuple can be <span class="math notranslate nohighlight">\({S_t, A_t, R_{t+1}, S_{t+1}, A_{t+1}}\)</span> or dropping the time indices entirely as <span class="math notranslate nohighlight">\({ s, a, r, s'}\)</span>. Notice that reward <span class="math notranslate nohighlight">\(r\)</span> occurs at <span class="math notranslate nohighlight">\(t+1\)</span> but is not represented as <span class="math notranslate nohighlight">\(r'\)</span>.</p>
+<p>The transition probability of the next state given a previous can be used to represent both Deterministic and Stochastic environments. Similarly the policy <span class="math notranslate nohighlight">\(\pi(a_t | s_t)\)</span> can be used to represent both deterministic or stochastic policies.</p>
+</section>
+<section id="deterministic-and-stochastic-rewards">
+<h2>Deterministic and Stochastic Rewards<a class="headerlink" href="#deterministic-and-stochastic-rewards" title="Permalink to this headline">#</a></h2>
+<p>One might think how can rewards be stochastic. In games such as gridworld, given a deterministic environment, the rewards for the states can be defined as deterministic (meaning each state has its own reward attributed and does not change).</p>
+<p>However, in games such as chess or tic-tac-toe, reaching a specific state does not mean that the same exact reward will be received every single time. The reward for some states can be higher and might be changed based on the current scenarion. Having said that, these rewards can still be converted to deterministic by defining the return as either a win or lose based on the outcome of the episode. However, this leads to yet another problem where agent just wanders around without a proper idea or understanding of where to expect the rewards. Thus it makes complete sense to define rewards as both deterministic and stochastic based on the environment or the problem to be solved at hand.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\text{Reward is random (stochastic)} &amp;= p(s', r |s,a)\\
+\text{Reward is deterministic} &amp;= p(s'|s,a)
+\end{align}\end{split}\]</div>
+<p>Now let’s break down the phrase “Discrete-time stochastic control process”.</p>
+<ul class="simple">
+<li><p>Stochastic process == Random process.</p></li>
+<li><p>Discrete-time == Each step the agent plays is discrete. (Computers themselves are discrete time). (However, continuous actions are seemingly continuous).</p></li>
+</ul>
+<figure class="align-default" id="id3">
+<img alt="../_images/control.PNG" src="../_images/control.PNG" />
+<figcaption>
+<p><span class="caption-number">Fig. 68 </span><span class="caption-text">Controllable and autonomous systems.</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -520,17 +595,17 @@ Q values [0.40167238 0.38461538 0.38461538 0.38461538]
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="epsilon-greedy.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="mdp.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Epsilon Greedy explained</p>
+            <p class="prev-next-title">Markov Decision Processes Introduction</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="mdp.html" title="next page">
+    <a class='right-next' id="next-link" href="future-rewards.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Markov Decision Processes Introduction</p>
+        <p class="prev-next-title">Future Rewards</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

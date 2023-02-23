@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>How to rectify two cameras? &#8212; Notes @ The Essential AI</title>
     
   <!-- Loaded before other Sphinx assets -->
@@ -35,10 +36,13 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -210,6 +214,21 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toctree-l2">
     <a class="reference internal" href="../rl/optimistic-initial-values.html">
      Optimistic initial values
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../rl/mdp.html">
+     Markov Decision Processes Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../rl/markov-property.html">
+     The Markov Property
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../rl/future-rewards.html">
+     Future Rewards
     </a>
    </li>
   </ul>
@@ -419,7 +438,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="how-to-rectify-two-cameras">
+  <section class="tex2jax_ignore mathjax_ignore" id="how-to-rectify-two-cameras">
 <h1>How to rectify two cameras?<a class="headerlink" href="#how-to-rectify-two-cameras" title="Permalink to this headline">#</a></h1>
 <p><strong>Recap</strong></p>
 <p>The entire aim of rectification is to perform the 2D <span class="math notranslate nohighlight">\(\rightarrow\)</span> 3D mapping from an image coordinate to a 3D real world point. This is required to ESTIMATE the true depth information of a point in space. <span class = 'high'>We have discussed, how this 2D <span class="math notranslate nohighlight">\(\rightarrow\)</span> 3D mapping is not possible by using a single image and we require a minimum of 2 images.</span></p>
@@ -431,25 +450,31 @@ title="Print to PDF"
 </div>
 <p>For pixel matching between two cameras, we need to first rectify the images, such that the pixel search between left and right images becomes a linear search.</p>
 <p>To perform this rectification, we need to rotate cameras such that the image planes are parallel to each other.</p>
-<div class="figure align-default" id="id1">
+<figure class="align-default" id="id1">
 <img alt="../_images/epipolar.PNG" src="../_images/epipolar.PNG" />
-<p class="caption"><span class="caption-number">Fig. 22 </span><span class="caption-text">Epipolar Geometry</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 22 </span><span class="caption-text">Epipolar Geometry</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p><span class="math notranslate nohighlight">\(P \rightarrow\)</span> Point in real world. <span class="math notranslate nohighlight">\([X,Y,Z]^T\)</span></p>
 <p><span class="math notranslate nohighlight">\( P_l \rightarrow \)</span> Position of <span class="math notranslate nohighlight">\(P\)</span> as seen from left camera. <span class="math notranslate nohighlight">\({P_l}_{3 \times 1}\)</span></p>
 <p><span class="math notranslate nohighlight">\( P_r \rightarrow \)</span> Position of <span class="math notranslate nohighlight">\(P\)</span> as seen from right camera. <span class="math notranslate nohighlight">\({P_r}_{3 \times 1}\)</span></p>
 <p><span class="math notranslate nohighlight">\( T \rightarrow \)</span> Baseline between the camera <span class="math notranslate nohighlight">\(C_l\)</span> and <span class="math notranslate nohighlight">\(C_r\)</span>.</p>
 <p>Using the co-planarity constraint, we can find a relation between the point in the left camera and the point in the right camera.</p>
-<div class="figure align-default" id="id2">
+<figure class="align-default" id="id2">
 <img alt="../_images/co-planarity-constraint.PNG" src="../_images/co-planarity-constraint.PNG" />
-<p class="caption"><span class="caption-number">Fig. 23 </span><span class="caption-text">Using coplanarity constraint to find the relation between <span class="math notranslate nohighlight">\(P_l\)</span> and <span class="math notranslate nohighlight">\(P_r\)</span></span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
-</div>
-<div class="section" id="the-essential-matrix">
+<figcaption>
+<p><span class="caption-number">Fig. 23 </span><span class="caption-text">Using coplanarity constraint to find the relation between <span class="math notranslate nohighlight">\(P_l\)</span> and <span class="math notranslate nohighlight">\(P_r\)</span></span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="the-essential-matrix">
 <h2>The Essential Matrix<a class="headerlink" href="#the-essential-matrix" title="Permalink to this headline">#</a></h2>
-<div class="figure align-default" id="id3">
+<figure class="align-default" id="id3">
 <img alt="../_images/essential-matrix.PNG" src="../_images/essential-matrix.PNG" />
-<p class="caption"><span class="caption-number">Fig. 24 </span><span class="caption-text">Essential Matrix</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 24 </span><span class="caption-text">Essential Matrix</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>The vector <span class="math notranslate nohighlight">\(T = [T_x, T_y, T_z]^T\)</span> is the relative distance (in 3D coordinates) between the left and the right cameras.</p>
 <p>The above figure gives us the relations:</p>
 <div class="math notranslate nohighlight" id="equation-essential-matrix1">
@@ -463,15 +488,17 @@ title="Print to PDF"
 </div>
 <p><span class="math notranslate nohighlight">\(E\)</span> has only 5 degrees of freedom.</p>
 <p>Using <span class="math notranslate nohighlight">\(P_r^TEP_l = 0\)</span> we cannot find the exact relation between <span class="math notranslate nohighlight">\(P_l\)</span> and <span class="math notranslate nohighlight">\(P_r\)</span>. The equation has infinite solutions.</p>
-</div>
-<div class="section" id="the-fundamental-matrix">
+</section>
+<section id="the-fundamental-matrix">
 <h2>The Fundamental Matrix<a class="headerlink" href="#the-fundamental-matrix" title="Permalink to this headline">#</a></h2>
 <p><span class = 'high'>An important detail to observe here is that, <span class="math notranslate nohighlight">\(P_l\)</span> and <span class="math notranslate nohighlight">\(P_r\)</span> are 3D locations as seen from left and right cameras, respectively.</span></p>
 <p><span class = 'high'>Fundamental matrix captures the relation between the 2D image coordinates.</span></p>
-<div class="figure align-default" id="id4">
+<figure class="align-default" id="id4">
 <img alt="../_images/fundamental-matrix.PNG" src="../_images/fundamental-matrix.PNG" />
-<p class="caption"><span class="caption-number">Fig. 25 </span><span class="caption-text">Fundamental Matrix</span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 25 </span><span class="caption-text">Fundamental Matrix</span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>In the above figure <span class="math notranslate nohighlight">\(M_l\)</span> and <span class="math notranslate nohighlight">\(M_r\)</span> are the intrinsic parameter matrices of left and right cameras respectively.</p>
 <div class="tip admonition">
 <p class="admonition-title">What is the use of Essential and Fundamental matrices?</p>
@@ -493,9 +520,9 @@ title="Print to PDF"
 <p>F <span class="math notranslate nohighlight">\(\rightarrow\)</span> extrinsic parameters from E and intrinsic parameters of both the cameras.</p>
 <p><span class="math notranslate nohighlight">\(x_l\)</span> and <span class="math notranslate nohighlight">\(x_r\)</span> are the homogeneous coordinates of the 2D point. In the form of <span class="math notranslate nohighlight">\(s[X,Y,1]^T\)</span>.</p>
 </div>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="correspondence-problem-using-fundamental-matrix">
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="correspondence-problem-using-fundamental-matrix">
 <h1>Correspondence problem using Fundamental Matrix<a class="headerlink" href="#correspondence-problem-using-fundamental-matrix" title="Permalink to this headline">#</a></h1>
 <div class="math notranslate nohighlight" id="equation-correspondence">
 <span class="eqno">(19)<a class="headerlink" href="#equation-correspondence" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{bmatrix}
@@ -574,7 +601,7 @@ x_2^TFx = 0
 $$
 P_r = R(P_l-T)
 $$ -->
-</div>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -588,7 +615,7 @@ $$ -->
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./cvip"
         },
         predefinedOutput: true
