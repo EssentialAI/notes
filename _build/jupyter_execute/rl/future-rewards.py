@@ -82,7 +82,7 @@
 # 
 # In this sceario, **does it even make sense to maximize `the` reward even when the reward is not known (random)?**
 # 
-# This is the reason why the return is defined as a random variable. What we really want to maximize is the **expected return (or the expected value of the return) over time. **
+# This is the reason why the return is defined as a random variable. What we really want to maximize is the **expected return (or the expected value of the return) over time.**
 # 
 # This is also called **Value function.** It is defined as the expected value of the return given a state $s$ under the policy $\pi$. 
 # 

@@ -27,4 +27,4 @@ chapters:
   - file: rl/mdp.ipynb
   - file: rl/markov-property.ipynb
   - file: rl/future-rewards.ipynb
-
+  - file: rl/bellman.ipynb
