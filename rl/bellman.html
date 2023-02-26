@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>The Markov Property &#8212; Notes @ The Essential AI</title>
+    <title>The Bellman Equation &#8212; Notes @ The Essential AI</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -53,12 +53,11 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link rel="canonical" href="https://essentialai.github.io/essentialai.github.io/rl/markov-property.html" />
+    <link rel="canonical" href="https://essentialai.github.io/essentialai.github.io/rl/bellman.html" />
     <link rel="shortcut icon" href="../_static/brain1.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Future Rewards and Value functions" href="future-rewards.html" />
-    <link rel="prev" title="Markov Decision Processes Introduction" href="mdp.html" />
+    <link rel="prev" title="Future Rewards and Value functions" href="future-rewards.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -221,8 +220,8 @@ const thebe_selector_output = ".output, .cell_output"
      Markov Decision Processes Introduction
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="markov-property.html">
      The Markov Property
     </a>
    </li>
@@ -231,8 +230,8 @@ const thebe_selector_output = ".output, .cell_output"
      Future Rewards and Value functions
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="bellman.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      The Bellman Equation
     </a>
    </li>
@@ -297,7 +296,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/EssentialAI/notes/main?urlpath=tree/rl/markov-property.ipynb"
+        <a href="https://mybinder.org/v2/gh/EssentialAI/notes/main?urlpath=tree/rl/bellman.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -358,7 +357,7 @@ title="Fullscreen mode"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../_sources/rl/markov-property.ipynb"
+        <a href="../_sources/rl/bellman.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -395,108 +394,23 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
-</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   The Markov Property
-  </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-state-transition-matrix">
-     The State Transition Matrix
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#diving-deep-into-markov-decision-processes">
-   Diving deep into Markov Decision Processes
-  </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#importance-of-noticing-the-time-indicing-during-the-action-reward-loop">
-     Importance of noticing the time indicing during the action-reward loop
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#deterministic-and-stochastic-rewards">
-     Deterministic and Stochastic Rewards
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-
-    </nav>
 </div>
     </div>
     <div class="article row">
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>The Markov Property</h1>
+                <h1>The Bellman Equation</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   The Markov Property
-  </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-state-transition-matrix">
-     The State Transition Matrix
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#diving-deep-into-markov-decision-processes">
-   Diving deep into Markov Decision Processes
-  </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#importance-of-noticing-the-time-indicing-during-the-action-reward-loop">
-     Importance of noticing the time indicing during the action-reward loop
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#deterministic-and-stochastic-rewards">
-     Deterministic and Stochastic Rewards
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-
-                        </nav>
                     </div>
                 </div>
             </div>
@@ -504,73 +418,31 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="the-markov-property">
-<h1>The Markov Property<a class="headerlink" href="#the-markov-property" title="Permalink to this headline">#</a></h1>
-<p>“All models are wrong, but some are useful.” - Box, George E.P.; Norman R. Draper (1987)</p>
-<p>The Markov property seems unrealistic, and despite that it underpins multiple sub-fields of Machine Learning.</p>
-<p>Let’s understand the markov property from the context of Language models. <strong>Consider: Sentences are sequence of words, and words are states.</strong> Example Sentence: “A quick brown fox jumps over a lazy dog.”</p>
-<p>Suppose you are given the entire sentence except for the last word and you are asked to predict the last word. This can be formulated as a probability distribution. What is the word at time 9 given all the words until time 8.</p>
-<div class="math notranslate nohighlight">
-\[P(w_9 | w_{1..8} = \text{&quot;the quick brown fox jumps over a lazy&quot;})\]</div>
-<p>One might think that training such a language model might require us to consider all possible sentences in the english language. This is almost impossible.</p>
-<p>Markov property states asks us to only consider the previous word to predict the next word. More formally,</p>
-<p>The first-order Markov Property states that:</p>
-<div class="math notranslate nohighlight">
-\[p(s_t | s_{t-1}, s_{t-2},...,s_1) = p(s_t | s_{t-1})\]</div>
-<p>This means the state at time <span class="math notranslate nohighlight">\(t\)</span> only depends on the state <span class="math notranslate nohighlight">\(t-1\)</span>. Second-order markov property is where the state at <span class="math notranslate nohighlight">\(t\)</span> depends on both states at <span class="math notranslate nohighlight">\(t-1\)</span> and <span class="math notranslate nohighlight">\(t-2\)</span>. This property is somewhat restrictive. What if the word at time <span class="math notranslate nohighlight">\(t\)</span> is <code class="docutils literal notranslate"><span class="pre">the</span></code>. This makes it almost impossible to predict the next word accurately. In reality, the markov property works surprisingly well. Why does Markov Property even work? <a class="reference external" href="https://stats.stackexchange.com/questions/329011/markov-property-in-practical-rl">see more</a> In environments such as Atari games, a state is usually considered as a group of 4 (or n) frames. This means that an observation is not equal to the state and hence we have both observation space and state space.</p>
-<section id="the-state-transition-matrix">
-<h2>The State Transition Matrix<a class="headerlink" href="#the-state-transition-matrix" title="Permalink to this headline">#</a></h2>
-<p>One of the key ingredient of the Markov Property is the State Transition matrix. In order to express the probability of going from one state to another, we need two inputs, the current state and the next state.</p>
-<div class="math notranslate nohighlight">
-\[T_{ij} = p(s_t = j | s_{t-1}=i) \approx \frac{\text{count}(i\rightarrow j)}{\text{count}(i)}\]</div>
-<p>Using maximum likelihood we can count the event of <span class="math notranslate nohighlight">\(i \rightarrow j\)</span> from state <span class="math notranslate nohighlight">\(i\)</span>.</p>
-</section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="diving-deep-into-markov-decision-processes">
-<h1>Diving deep into Markov Decision Processes<a class="headerlink" href="#diving-deep-into-markov-decision-processes" title="Permalink to this headline">#</a></h1>
-<p>We now have all the ingredients to dive into MDPs. In a single sentence, we can define MDP as a <code class="docutils literal notranslate"><span class="pre">discrete-time</span> <span class="pre">stochatic</span> <span class="pre">control</span> <span class="pre">process</span></code>.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="the-bellman-equation">
+<h1>The Bellman Equation<a class="headerlink" href="#the-bellman-equation" title="Permalink to this headline">#</a></h1>
+<p>Let’s discuss value functions for a second. One useful way to think about these values functions is the the form of probabilistic trees.</p>
+<p>Consider a biased coin with <span class="math notranslate nohighlight">\(\text{P(heads)} = 0.6\)</span> and <span class="math notranslate nohighlight">\(\text{P(tails)} = 0.4\)</span>. Let the rewards for tails be 0 and reward for heads = 1. The root note represents the current state. From the below graph its clear.</p>
 <figure class="align-default" id="id1">
-<img alt="../_images/mdp-flow.PNG" src="../_images/mdp-flow.PNG" />
+<img alt="../_images/bellman1.PNG" src="../_images/bellman1.PNG" />
 <figcaption>
-<p><span class="caption-number">Fig. 66 </span><span class="caption-text">Markov Decision Process ingredients.</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 72 </span><span class="caption-text">Simple tree to calculate expected reward</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>Environments are defined (not really built). We try to build the learning agent that navigates (interacts) with the defined environment and solve the same.</p>
-<p>From the above figure it can be inferred that the agent takes an action in the environment (that may or may not change the environment). The environment then returns a feedback to the agent. This is in the form of <code class="docutils literal notranslate"><span class="pre">reward</span> <span class="pre">and</span> <span class="pre">the</span> <span class="pre">next</span> <span class="pre">state</span></code>.</p>
-<section id="importance-of-noticing-the-time-indicing-during-the-action-reward-loop">
-<h2>Importance of noticing the time indicing during the action-reward loop<a class="headerlink" href="#importance-of-noticing-the-time-indicing-during-the-action-reward-loop" title="Permalink to this headline">#</a></h2>
-<figure class="align-default" id="id2">
-<img alt="../_images/mdp-flow1.PNG" src="../_images/mdp-flow1.PNG" />
-<figcaption>
-<p><span class="caption-number">Fig. 67 </span><span class="caption-text">Markov Decision Process ingredients.</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
-</figcaption>
-</figure>
-<p>Suppose the agent sees the environment at the current time <span class="math notranslate nohighlight">\(t\)</span>. The action chooses an action <span class="math notranslate nohighlight">\(A_t\)</span> from the policy <span class="math notranslate nohighlight">\(\pi (a_t | s_t)\)</span> (notice both action and state have the same time index <span class="math notranslate nohighlight">\(t\)</span>). The Action <span class="math notranslate nohighlight">\(A_t\)</span> is input to the environment and this brings us to the next time-step. The increment in time-step is implicit in the environment. The agent now arrives in the next state <span class="math notranslate nohighlight">\(s_{t+1}\)</span> and receives the reward of <span class="math notranslate nohighlight">\(R_{t+1}\)</span>. <strong>All together this forms the tuple for a single step in an MDP. Transition step = {<span class="math notranslate nohighlight">\(S_t, A_t, R_{t+1}, S_{t+1}\)</span>}</strong></p>
-<p>Another ways to represent the above tuple can be <span class="math notranslate nohighlight">\({S_t, A_t, R_{t+1}, S_{t+1}, A_{t+1}}\)</span> or dropping the time indices entirely as <span class="math notranslate nohighlight">\({ s, a, r, s'}\)</span>. Notice that reward <span class="math notranslate nohighlight">\(r\)</span> occurs at <span class="math notranslate nohighlight">\(t+1\)</span> but is not represented as <span class="math notranslate nohighlight">\(r'\)</span>.</p>
-<p>The transition probability of the next state given a previous can be used to represent both Deterministic and Stochastic environments. Similarly the policy <span class="math notranslate nohighlight">\(\pi(a_t | s_t)\)</span> can be used to represent both deterministic or stochastic policies.</p>
-</section>
-<section id="deterministic-and-stochastic-rewards">
-<h2>Deterministic and Stochastic Rewards<a class="headerlink" href="#deterministic-and-stochastic-rewards" title="Permalink to this headline">#</a></h2>
-<p>One might think how can rewards be stochastic. In games such as gridworld, given a deterministic environment, the rewards for the states can be defined as deterministic (meaning each state has its own reward attributed and does not change).</p>
-<p>However, in games such as chess or tic-tac-toe, reaching a specific state does not mean that the same exact reward will be received every single time. The reward for some states can be higher and might be changed based on the current scenarion. Having said that, these rewards can still be converted to deterministic by defining the return as either a win or lose based on the outcome of the episode. However, this leads to yet another problem where agent just wanders around without a proper idea or understanding of where to expect the rewards. Thus it makes complete sense to define rewards as both deterministic and stochastic based on the environment or the problem to be solved at hand.</p>
+<p>The Expected reward for the above scenario will be <span class="math notranslate nohighlight">\(0.6 \times 1 + 0.4 \times 0 = 0.6\)</span>. The expected reward is the weighted sum of all possible rewards given the current state. Note that this is true for any tree with the child nodes being all possible states from current state and the edges representing the transition probability from current state to each of the child nodes (states).</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}
+\[
 \begin{align}
-\text{Reward is random (stochastic)} &amp;= p(s', r |s,a)\\
-\text{Reward is deterministic} &amp;= p(s'|s,a)
-\end{align}\end{split}\]</div>
-<p>Now let’s break down the phrase “Discrete-time stochastic control process”.</p>
-<ul class="simple">
-<li><p>Stochastic process == Random process.</p></li>
-<li><p>Discrete-time == Each step the agent plays is discrete. (Computers themselves are discrete time). (However, continuous actions are seemingly continuous).</p></li>
-</ul>
-<figure class="align-default" id="id3">
-<img alt="../_images/control.PNG" src="../_images/control.PNG" />
-<figcaption>
-<p><span class="caption-number">Fig. 68 </span><span class="caption-text">Controllable and autonomous systems.</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
-</figcaption>
-</figure>
-</section>
+E(X) = \sum_x xp(x)
+\end{align}
+\]</div>
+<p>We can extend this concept even further. In the above figure, we have considered a simple scenario with just one level of child nodes. For example, in games like tic-tac-toe, the game is not over at just one time stamp and each child node is yet another tree with further child nodes of their own. In other words this leads to <code class="docutils literal notranslate"><span class="pre">recursion</span></code>, with each child of a tree being a tree in itself.</p>
+<p><strong>Can we use this property to find a generalized formula for calculation of expected rewards?</strong></p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+G_1 = 
+\end{align}
+\]</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -600,19 +472,12 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="mdp.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="future-rewards.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Markov Decision Processes Introduction</p>
+            <p class="prev-next-title">Future Rewards and Value functions</p>
         </div>
-    </a>
-    <a class='right-next' id="next-link" href="future-rewards.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Future Rewards and Value functions</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
     </a>
 </div>
             </footer>
